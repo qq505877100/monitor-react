@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Layout, Menu, Icon, Select } from 'antd';
 import "./index.css";
-import Api from "../../js/yf/api";
-import Jvm from "../../js/yw/server/jvm.jsx";
-import Cpu from "../../js/yw/server/cpu.jsx";
+import Api from "../../components/yf/api";
+import Jvm from "../../components/yw/server/jvm.jsx";
+import Cpu from "../../components/yw/server/cpu.jsx";
 
 const Option = Select.Option;
 const SubMenu = Menu.SubMenu;
 const { Header, Content, Footer, Sider } = Layout;
-const url = "http://localhost:8090/assert/test/test";
-
-
+const url = "http://192.168.51.199:8090/assert/test/test";
 export default class Index extends Component {
     constructor() {
         super();

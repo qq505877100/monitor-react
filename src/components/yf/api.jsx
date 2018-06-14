@@ -3,7 +3,8 @@ import echarts from 'echarts/lib/echarts';
 import { bar, tooltip, title } from 'echarts';
 import axios from 'axios';
 
-const url = "http://localhost:8090/assert/test/test";
+const url = "http://192.168.51.199:8090/assert/test/test";
+
 export default class Api extends React.Component {
     constructor(props) {
         console.log("constructor",props)

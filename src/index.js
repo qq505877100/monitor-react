@@ -10,14 +10,14 @@ import {
 	Provider
 } from 'react-redux';
 import thunk from 'redux-thunk';
-import reducers from './reducer';
+import reducers from './reducers/index';
 import {
 	BrowserRouter as Router,
 	Route,
 	Redirect,
 	Switch,
 	Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 const store = createStore(reducers,
 	compose(applyMiddleware(thunk),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
