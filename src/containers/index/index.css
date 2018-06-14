@@ -1,0 +1,37 @@
+
+html,body,#root{
+    width: 100%;
+    height: 100%;
+}
+.ant-layout{
+    height: 100%;
+    
+}
+.header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: "30px";
+}
+.footer {
+    background-color: black;
+	color: white;
+	clear: both;
+	text-align: center;
+	padding: 5px;
+}
+.sider{
+    background-image: url(./images/left3.jpg);
+} 
+.menu,.SubMenu {
+        background-image: url(./images/left3.jpg);
+}
+.content {
+    background-image: url(./images/body.jpg);
+    opacity: 0.9;
+    float: left;
+    /* color: "white";
+    font-size:'100px';
+    text-align: "center"; */
+}
