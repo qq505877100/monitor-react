@@ -1,3 +1,3 @@
-import function aa(params) {
+export function aa(params) {
     console.log(params)
 }
