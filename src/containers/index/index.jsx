@@ -6,66 +6,45 @@ import Api from "../../components/yf/api";
 import Jvm from "../../components/yw/server/jvm.jsx";
 import Cpu from "../../components/yw/server/cpu.jsx";
 
+import { changeState } from '../../reducers/index.reducer'
+import { getNum } from '../../reducers/yf/yf.reducer'
+import { connect } from 'react-redux'
+
 const Option = Select.Option;
 const SubMenu = Menu.SubMenu;
 const { Header, Content, Footer, Sider } = Layout;
 const url = "http://192.168.51.199:8090/assert/test/test";
+let common = {}
+/**
+ * yfReducer{getNum(),result},index{selected,key},
+ */
+@connect(
+    state => state,//要哪些状态
+    { getNum,changeState }//需要什么动作
+)
 export default class Index extends Component {
-    constructor() {
-        super();
-        this.state = {
-            collapsed: false,
-            key: '接口监控',
-            selected: 'yf',
-            result: {}
-        }
-    }
     //侧边栏点击
     menu = (e) => {
-        console.log('e.keyPath', e.keyPath)
-        this.setState({
-            key: e.key
-        })
-        //入參
-        let data = {
-            user: this.state.selected,
-            model: this.state.key
-        }
-        let that = this;
-        axios.post(url, data)
-            .then(function (response) {
-                console.log("response", response.data)
-                that.setState({
-                    result: response.data
-                })
-            })
-            .catch(function (error) {
-                console.log('error----------' + error);
-            });
+        let user = this.props.index.selected
+        let model = this.props.index.key
+        console.log("common", this.props);
+        this.props.getNum({ user, model })
     }
-
+    componentDidMount(){
+        console.log(this.props)
+    }
 
     //下拉款点击
     handleChange = (selected) => {
-        // alert(`selected ${value}`);
+        console.log("this",this)
         if (selected === "yf") {
-            this.setState({
-                selected: selected,
-                key: '接口监控'
-            })
+            this.props.changeState({selected:'yf',key:'接口监控'})
         } else if (selected === "yw") {
-            this.setState({
-                selected: selected,
-                key: 'jvm'
-            })
+            this.props.changeState({selected:'yw',key:'jvm'})
         } else if (selected === "cp") {
-            this.setState({
-                selected: selected,
-                key: '服务器信息'
-            })
+            this.props.changeState({selected:'cp',key:'服务器信息'})
         }
     }
-
 
 
     render() {
@@ -89,7 +68,7 @@ export default class Index extends Component {
                 <Menu className="menu" theme="dark" mode="inline"
                     onClick={this.menu}
                     defaultOpenKeys={["服务器监控"]}
-                    selectedKeys={[this.state.key]}
+                    selectedKeys={[this.props.index.key]}
                 >
                     <SubMenu key="服务器监控" title={<span><Icon type="mail" /><span>服务器监控</span></span>}>
                         <Menu.Item key="jvm">jvm</Menu.Item>
@@ -115,7 +94,7 @@ export default class Index extends Component {
             <Menu className="menu" theme="dark" mode="inline"
                 onClick={this.menu}
                 defaultOpenKeys={["服务器运行状态"]}
-                selectedKeys={[this.state.key]}
+                selectedKeys={[this.props.index.key]}
             >
                 <SubMenu key="服务器运行状态" title={<span><Icon type="mail" /><span>服务器运行状态</span></span>}>
                     <Menu.Item key="服务器信息">服务器信息</Menu.Item>
@@ -169,13 +148,13 @@ export default class Index extends Component {
                         <br />
                         {//根据不同下拉选展示不同的导航栏
                             //研发
-                            this.state.selected === 'yf' ? yf
+                            this.props.index.selected === 'yf' ? yf
                                 :
                                 //运维
-                                this.state.selected === 'yw' ? yw
+                                this.props.index.selected === 'yw' ? yw
                                     :
                                     //产品
-                                    this.state.selected === 'cp' ? cp
+                                    this.props.index.selected === 'cp' ? cp
                                         :
                                         <Menu className="menu" theme="dark" mode="inline" onClick={this.menu}></Menu>
                         }
@@ -188,21 +167,26 @@ export default class Index extends Component {
                     {/********************************body*********************************/}
                     <Content className="content" style={{ color: "white", fontSize: '100px', textAlign: "center" }} >
                         {//根据侧边Menu选择的key来展示不同的echarts
-                            this.state.key == '接口监控' ?
+                            this.props.index.key == '接口监控' ?
                                 <Api
-                                    cey={this.state.key}
-                                    selected={this.state.selected}
-                                    result={this.state.result}
+                                    cey={this.props.index.key}
+                                    selected={this.props.index.selected}
+                                    result={this.props.yfReducer.result}
                                 ></Api>
                                 :
-                                this.state.key === 'jvm' ?
+                                this.props.index.key === 'jvm' ?
                                     <Jvm
-                                        cey={this.state.key}
-                                        selected={this.state.selected}
-                                        result={this.state.result}
+                                        cey={this.props.index.key}
+                                        selected={this.props.index.selected}
+                                        result={this.props.yfReducer.result}
                                     ></Jvm>
                                     :
-                                    this.state.key === 'cpu信息' ? <Cpu></Cpu>
+                                    this.props.index.key === 'cpu信息' ?
+                                        <Cpu
+                                            cey={this.props.index.key}
+                                            selected={this.props.index.selected}
+                                            result={this.props.yfReducer.result}
+                                        ></Cpu>
                                         :
                                         <h1 style={{ textAlign: "center", color: "white", fontSize: "30px" }}>暂无数据</h1>
                         }
