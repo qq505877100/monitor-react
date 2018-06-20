@@ -5,7 +5,7 @@ import { getNum } from '../../reducers/yf/yf.reducer'
 import { connect } from 'react-redux'
 import axios from 'axios';
 
-const url = "http://192.168.51.199:8090/assert/test/test";
+const url = "http://192.168.51.199:8090/monitor/test/test";
 @connect(
     state => state.yfReducer,//要哪些状态
     { getNum }//需要什么动作
@@ -17,9 +17,9 @@ export default class Api extends React.Component {
 
     //侧边栏点击修改props渲染数据
     componentWillReceiveProps(props) {
-        let user = this.props.cey
-        let model = this.props.selected
-        console.log("componentWillReceiveProps", props)
+        // let user = this.props.cey
+        // let model = this.props.selected
+        // console.log("componentWillReceiveProps", props)
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('api'), 'dark');
         // 绘制图表

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import echarts from 'echarts/lib/echarts';
-import { pie, tooltip, title } from 'echarts'
+import { pie, tooltip, title, connect } from 'echarts'
 import axios from 'axios';
 
-const url = "http://localhost:8090/assert/test/test";
+const url = "http://localhost:8090/monitor/test/test";
 export default class Api extends React.Component {
     constructor(props) {
         super(props);

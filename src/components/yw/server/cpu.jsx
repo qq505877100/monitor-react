@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import echarts from 'echarts/lib/echarts';
 import { bar, tooltip, title } from 'echarts'
 import axios from 'axios';
-const url = "http://localhost:8090/assert/test/test";
+const url = "http://localhost:8090/monitor/test/test";
 export default class Cpu extends React.Component {
     componentWillReceiveProps(props){
-        console.log('cpu-componentWillReceiveProps',props)
+        // console.log('cpu-componentWillReceiveProps',props)
         var myChart = echarts.init(document.getElementById('cpu'),'dark');
         myChart.setOption({
             title: {
@@ -44,7 +44,7 @@ export default class Cpu extends React.Component {
     }
 
     componentDidMount() {
-        console.log("cpu-componentDidMount", this.props)
+        // console.log("cpu-componentDidMount", this.props)
         //請求參數
         let data = {
             user: this.props.selected,

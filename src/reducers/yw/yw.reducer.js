@@ -1,28 +1,28 @@
-
 import axios from 'axios';
-const INTERFACE_DATA_GET = "INTERFACE_DATA_GET"
+const ECHART_GET_NUM = "ECHART_GET_NUM"
 const url = "http://192.168.51.199:8090/monitor/test/test";
 const initState={
    
 }
-export function yfReducer(state=initState,action) {
+export function ywReducer(state=initState,action){
     switch(action.type) {
-        case INTERFACE_DATA_GET :
+        case ECHART_GET_NUM :
             return {...state,...action.payload}
         default :
             return state
     }
 }
-export function getNum({user,model}) {
+
+export function ywGetNum({user,model}) {//下拉选,侧边栏
     let data = {user,model}
     return (dispatch,getState) => {
         let data = {user,model}
-        console.log("data",data)
+        console.log(data)
         axios.post(url, data)
             .then(function (response) {
                 console.log(`yf-response`, response.data)
                 dispatch({
-                    type: INTERFACE_DATA_GET,
+                    type: ECHART_GET_NUM,
                     payload:{
                         result: response.data
                     }

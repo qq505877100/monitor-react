@@ -13,8 +13,7 @@ import { connect } from 'react-redux'
 const Option = Select.Option;
 const SubMenu = Menu.SubMenu;
 const { Header, Content, Footer, Sider } = Layout;
-const url = "http://192.168.51.199:8090/assert/test/test";
-let common = {}
+const url = "http://192.168.51.199:8090/monitor/test/test";
 /**
  * yfReducer{getNum(),result},index{selected,key},
  */
@@ -25,18 +24,16 @@ let common = {}
 export default class Index extends Component {
     //侧边栏点击
     menu = (e) => {
+        //修改状态
+        this.props.changeState({selected:this.props.index.selected,key:e.key})
         let user = this.props.index.selected
         let model = this.props.index.key
-        console.log("common", this.props);
         this.props.getNum({ user, model })
-    }
-    componentDidMount(){
-        console.log(this.props)
     }
 
     //下拉款点击
     handleChange = (selected) => {
-        console.log("this",this)
+        console.log("selected-this",this)
         if (selected === "yf") {
             this.props.changeState({selected:'yf',key:'接口监控'})
         } else if (selected === "yw") {
