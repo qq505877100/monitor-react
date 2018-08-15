@@ -13,10 +13,10 @@ import thunk from 'redux-thunk';
 import reducers from './reducers/index';
 import {
 	BrowserRouter as Router,
-	Route,
-	Redirect,
-	Switch,
-	Link
+	// Route,
+	// Redirect,
+	// Switch,
+	// Link
 } from 'react-router-dom';
 const store = createStore(reducers,
 	compose(applyMiddleware(thunk),
@@ -30,3 +30,9 @@ ReactDom.render(
 		</Router>
 	</Provider>),
 	document.getElementById("root"));
+
+new Promise((resolve,reject) => {
+	resolve("success")
+}).then((result) => {
+	console.log(result);
+})

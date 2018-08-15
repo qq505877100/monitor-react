@@ -1,7 +1,7 @@
 
-import axios from 'axios';
+// import axios from 'axios';
+import axiosIns from "../../utils/axios/axios";
 const INTERFACE_DATA_GET = "INTERFACE_DATA_GET"
-const url = "http://192.168.51.199:8090/monitor/test/test";
 const initState={
    
 }
@@ -13,12 +13,10 @@ export function yfReducer(state=initState,action) {
             return state
     }
 }
-export function getNum({user,model}) {
-    let data = {user,model}
+// export function getNum({user,model}) {
+    export function getNum() {
     return (dispatch,getState) => {
-        let data = {user,model}
-        console.log("data",data)
-        axios.post(url, data)
+        axiosIns.get("/yf/api")
             .then(function (response) {
                 console.log(`yf-response`, response.data)
                 dispatch({

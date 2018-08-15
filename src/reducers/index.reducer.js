@@ -1,7 +1,7 @@
 
 const initState = {
     selected: 'yf',
-    key: "接口监控"
+    key: "api_monitor"
 }
 const CHANGE_STATE = "CHANGE_STATE"
 export function index(state = initState, action) {

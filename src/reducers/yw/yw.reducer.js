@@ -1,28 +1,43 @@
-import axios from 'axios';
-const ECHART_GET_NUM = "ECHART_GET_NUM"
-const url = "http://192.168.51.199:8090/monitor/test/test";
+// import axios from 'axios';
+import axiosIns from "../../utils/axios/axios";
+
+const YW_ECHART_GET_JVM = "YW_ECHART_GET_JVM"
 const initState={
    
 }
 export function ywReducer(state=initState,action){
     switch(action.type) {
-        case ECHART_GET_NUM :
+        case YW_ECHART_GET_JVM :
             return {...state,...action.payload}
         default :
             return state
     }
 }
 
-export function ywGetNum({user,model}) {//下拉选,侧边栏
-    let data = {user,model}
-    return (dispatch,getState) => {
-        let data = {user,model}
-        console.log(data)
-        axios.post(url, data)
+export function ywGetJvm() {
+    return (dispatch) => {
+        axiosIns.get("/yw/jvm")
             .then(function (response) {
                 console.log(`yf-response`, response.data)
                 dispatch({
-                    type: ECHART_GET_NUM,
+                    type: YW_ECHART_GET_JVM,
+                    payload:{
+                        result: response.data
+                    }
+                })
+            })
+            .catch(function (error) {
+                console.log('yf-error----------' + error);
+            });
+    }
+}
+export function ywGetCpu() {
+    return (dispatch) => {
+        axiosIns.get("/yw/cpu")
+            .then(function (response) {
+                console.log(`yf-response`, response.data)
+                dispatch({
+                    type: YW_ECHART_GET_JVM,
                     payload:{
                         result: response.data
                     }
