@@ -7,9 +7,18 @@ function initAxiosIns() {
         timeout: 10000,
         // withCredentials : true
       });
+    axiosIns.interceptors.request.use(function(config){
+        return config
+    })
+    
+    // 拦截相应
+    
+    axiosIns.interceptors.response.use(function(config){
+        //Toast.hide()
+        return config
+    })
 }
 initAxiosIns();
 // const request = function(method,params,success,fail) {
 // }
-
 export default axiosIns
