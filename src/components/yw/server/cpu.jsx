@@ -10,6 +10,12 @@ import { connect } from 'react-redux';
 export default class Cpu extends Component {
     componentWillReceiveProps(props){
         // console.log('cpu-componentWillReceiveProps',props)
+        
+    }
+
+    componentDidMount() {
+        //渲染数据
+        //this.props.ywGetCpu();
         var myChart = echarts.init(document.getElementById('cpu'),'dark');
         myChart.setOption({
             title: {
@@ -31,25 +37,24 @@ export default class Cpu extends Component {
             },
             series: [
                 {
-                    name: '使用率',
+                    name: 'cpu使用率',
                     type: 'gauge',
+                    title: {
+                        color: "white"
+                    },
                     detail: {
-                        formatter:()=>{
+                        /* formatter:()=>{
                         props.result.forEach(element => {
                             return element.value+'%'
                         });
+                        }, */
+                        formatter : "{value}%",
+                        
                     },
-                    color:'red'    
-                    },
-                    data: props.result
+                    data: [{name:"cpu使用率",value: Math.ceil(Math.random()*100)}]
                 }
             ]
         });
-    }
-
-    componentDidMount() {
-        //渲染数据
-        this.props.ywGetCpu();
     }
     render() {
         let style={

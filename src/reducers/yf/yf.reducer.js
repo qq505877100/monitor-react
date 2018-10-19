@@ -1,6 +1,7 @@
 
 // import axios from 'axios';
 import axiosIns from "../../utils/axios/axios";
+import _x from "../../js/_x/index"
 const INTERFACE_DATA_GET = "INTERFACE_DATA_GET"
 const initState={
    
@@ -14,20 +15,19 @@ export function yfReducer(state=initState,action) {
     }
 }
 // export function getNum({user,model}) {
-    export function getNum() {
+export function getNum() {
     return (dispatch,getState) => {
-        axiosIns.get("/yf/api")
-            .then(function (response) {
-                console.log(`yf-response`, response.data)
-                dispatch({
-                    type: INTERFACE_DATA_GET,
-                    payload:{
-                        result: response.data
-                    }
-                })
+        //调用的时候不能加/ym/dasd前面的那个"/"
+        _x.util.request.request("yf/api",{},function (response) {
+            console.log(`yf-response`, response.data)
+            dispatch({
+                type: INTERFACE_DATA_GET,
+                payload:{
+                    result: response.data
+                }
             })
-            .catch(function (error) {
-                console.log('yf-error----------' + error);
-            });
+        },function (error) {
+            console.log('yf-error----------' + error);
+        })
     }
 }

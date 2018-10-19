@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import axiosIns from "../../utils/axios/axios";
+import _x from "../../js/_x/index"
 
 const YW_ECHART_GET_JVM = "YW_ECHART_GET_JVM"
 const initState={
@@ -16,35 +17,29 @@ export function ywReducer(state=initState,action){
 
 export function ywGetJvm() {
     return (dispatch) => {
-        axiosIns.get("/yw/jvm")
-            .then(function (response) {
-                console.log(`yf-response`, response.data)
-                dispatch({
-                    type: YW_ECHART_GET_JVM,
-                    payload:{
-                        result: response.data
-                    }
-                })
+        _x.util.request.request("yw/jvm",{},function (response) {
+            dispatch({
+                type: YW_ECHART_GET_JVM,
+                payload:{
+                    result: response.data
+                }
             })
-            .catch(function (error) {
-                console.log('yf-error----------' + error);
-            });
+        },function (error) {
+            console.log('yw/jvm-error----------' + error);
+        })
     }
 }
 export function ywGetCpu() {
     return (dispatch) => {
-        axiosIns.get("/yw/cpu")
-            .then(function (response) {
-                console.log(`yf-response`, response.data)
+        _x.util.request.request("yw/cpu",{},function (response) {
                 dispatch({
                     type: YW_ECHART_GET_JVM,
                     payload:{
                         result: response.data
                     }
                 })
-            })
-            .catch(function (error) {
-                console.log('yf-error----------' + error);
-            });
+        },function (error) {
+            console.log('yw/cpu调用error----------' + error);
+        })
     }
 }

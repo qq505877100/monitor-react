@@ -7,10 +7,11 @@ html,body,#root{
     height: 100%;
     
 }
-.header {
+.g_header {
+    /* display: inline-block; */
     background-color: black;
     color: white;
-    text-align: center;
+    /* text-align: center; */
     padding: 5px;
     font-size: "30px";
 }
@@ -34,4 +35,9 @@ html,body,#root{
     /* color: "white";
     font-size:'100px';
     text-align: "center"; */
+}
+.g-header-title {
+    font-size: "30px";
+    text-align: "center";
+    width:224px;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Layout, Select } from 'antd';
+import { Layout, Select,Row,Col, Menu, Icon } from 'antd';
+
 import "./index.css";
 //研发组件导入
 import YfMenu from "../../components/menus/yfMenu";
@@ -10,9 +11,9 @@ import Cpu from "../../components/yw/server/cpu";
 import Jvm from "../../components/yw/server/jvm";
 //产品组件导入
 import ProductMenu from "../../components/menus/productMenu";
+import UserAccess from "../../components/product/userAccess";
 
 import { changeState } from '../../reducers/index.reducer'
-import { getNum } from '../../reducers/yf/yf.reducer';
 
 import { connect } from 'react-redux'
 import { Map } from 'core-js';
@@ -24,34 +25,32 @@ const { Header, Content, Footer, Sider } = Layout;
  */
 @connect(
     state => state,//要哪些状态
-    { getNum,changeState }//需要什么动作
+    { changeState }//需要什么动作
 )
 export default class Index extends Component {
     //侧边栏点击
     menu = (e) => {
         console.log("menu:" + this.props.index);
-        //修改状态
-        this.props.changeState({selected:this.props.index.selected,key:e.key})
-        // let user = this.props.index.selected
-        // let model = this.props.index.key
-        // this.props.getNum({ user, model })
+        //修改状态，这里的indxe表示 redux定义是的index模块名字
+        this.props.changeState({selected:this.props.index.selected,key:e.key});
     }
 
     //下拉款点击
-    handleChange = (selected) => {
-        console.log("selected-this",this);//this.props.index.selected
-        console.log("this.props.index.selected",this.props.index.selected);//this.props.index.selected
-        if (selected === "yf") {
+    handleChange = (item,key) => {
+        console.log(`item:${item},key:${key}`);//this.props.index.selected
+        //console.log("this.props.index.selected",this.props.index.selected);//this.props.index.selected
+        if (item.key === "yf") {
             this.props.changeState({selected:'yf',key:'api_monitor'})
-        } else if (selected === "yw") {
+        } else if (item.key === "yw") {
             this.props.changeState({selected:'yw',key:'jvm'})
-        } else if (selected === "cp") {
+        } else if (item.key === "cp") {
             this.props.changeState({selected:'cp',key:'prod_server_info'})
         }
         //然后默认跳转到对应的 route
         //this.props.history.push("jvm")
     }
-    //切换导航栏对应的页面echarts数据
+
+    //切换左侧菜单栏时，生成对应的页面echarts数据组件
     onChangeMenuPage = () => {
         let key = this.props.index.key;
         let selected = this.props.index.selected;
@@ -59,7 +58,8 @@ export default class Index extends Component {
         console.log(`MenuPage: ${key},${selected},${result}`)
         //研发
         let yf = new Map([
-            ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
+            // ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
+            ["api_monitor",<UserAccess/>]
         ]);
         //运维
         let yw = new Map([
@@ -79,7 +79,7 @@ export default class Index extends Component {
             ["prod_hardware_info",<h1>硬盘信息</h1>],
             ["prod_network_updwon",<h1>网络上下行</h1>],
             ["prod_Throughput",<h1>吞吐量</h1>],
-            ["prod_access_info",<h1>访问用户信息表</h1>],
+            ["prod_access_info",<UserAccess/>],
             ["prod_not_access_info",<h1>未访问用户信息表</h1>],
             ["prod_web_user_operation",<h1>用户操作日志</h1>],
             ["prod_online_user_info",<h1>在线用户量信息</h1>],
@@ -111,9 +111,9 @@ export default class Index extends Component {
             }
         }
         console.log("echarts: sdasd    " + echarts)
-        return (echarts);
+        return (echarts);//返回菜单栏点击要展示的组件
     }
-    //切换导航栏
+    //切换导航栏时，同时改变左侧的菜单栏显示板块
     onChangeMenu = () => {
         let selected = this.props.index.selected;
         return (
@@ -134,11 +134,11 @@ export default class Index extends Component {
                 marginTop: "-12px",
                 float: 'left'
         }
+       
         return (
-            <Layout>
-                <Header className="header" >
-                    <div style={{ textAlign: "center", color: "white", fontSize: "30px" }}>
-                        日志监控
+            <Layout style={{minWidth:1140}}>
+                <Header className="g_header" >
+                    {/* <div  style={{color: "white", fontSize: "30px" }}>
                         <div style={seleStyle}>
                             <Select defaultValue="yf" onChange={this.handleChange}>
                                 <Option value="yf">研发</Option>
@@ -147,19 +147,38 @@ export default class Index extends Component {
                                 <Option value="cp">产品</Option>
                             </Select>
                         </div>
-                    </div>
+                    </div> */}
+                    <Row>
+                        <Col style={{fontSize: "30px",textAlign: "center",width:224}} span={3}>日志监控</Col>
+                        <Col >
+                            {/* 头部导航栏 */}
+                            <Menu mode="horizontal" 
+								onClick={this.handleChange}
+                                style={{height:58,float:"right"}}
+                                theme="dark">
+                                <Menu.Item key="yf">
+                                    <Icon type="mail" />研发
+                                </Menu.Item>
+                                <Menu.Item key="yw">
+                                    <Icon type="appstore" />运维
+                                </Menu.Item>
+                                <Menu.Item key="alipay" disabled>
+                                    <Icon type="appstore" />老板
+                                </Menu.Item>
+                                <Menu.Item key="cp">
+                                    <Icon type="appstore" />产品
+                                </Menu.Item>
+                            </Menu>
+                        </Col>
+                    </Row>
                 </Header>
 
                 <Layout>
                     {/********************************导航栏*********************************/}
                     <Sider
                         className="sider"
-                        breakpoint="lg"
-                        collapsedWidth="0"
-                        width={224}
-                        onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
-                    >
-                    {/* <br /> */}
+                        collapsedWidth="224"
+                        width={224}>
                         {this.onChangeMenu()}
                     </Sider>
                     {/********************************导航栏*********************************/}
@@ -172,11 +191,10 @@ export default class Index extends Component {
                             <Route path='/jvm' component={Jvm}></Route> 
                            
                         </Switch> */}
-                         {//根据不同下拉选展示不同的导航栏
+                         {//根据不同下拉选展示不同的导航栏,当切换菜单栏时，prop改变就会重新执行下面的语句，完成新的加载
                             this.onChangeMenuPage(this.props.index.selected,this.props.index.key)
                         }
                     </Content>
-                    {/********************************body*********************************/}
                 </Layout>
                 {/* footer页脚  */}
                 <Footer className="footer">

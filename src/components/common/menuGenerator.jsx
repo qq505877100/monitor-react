@@ -16,8 +16,9 @@ export default class MenuGenerator extends Component{
                 <Menu className="menu" theme="dark" mode="inline"
                     defaultOpenKeys={defaultOpenKeys}
                     defaultSelectedKeys={defaultSelectedKeys}
-                    onClick = {this.props.onMenu}
-                >
+                    style={{mixWidth:224}}
+                    inlineCollapsed={true}
+                    onClick = {this.props.onMenu}>
                     {menus.map( item => {
                         let children1 = item.children;
                         if (children1.length !== 0) {
