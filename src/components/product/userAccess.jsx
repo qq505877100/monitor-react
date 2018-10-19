@@ -515,7 +515,9 @@ export default class UserAccess extends Component {
 
                         {/* 统计图表 */}
                         <div className="fxh-header-chart">
-                            <ReactEcharts onEvents={onEvents} style={{ width: '950px', height: '300px', margin: "0 auto" }} option={this.getOption()} />
+                            <ReactEcharts onEvents={onEvents} 
+                                style={{ width: '950px', height: '300px', margin: "0 auto" }} 
+                                option={this.getOption()} />
                         </div>
                     </div>
 
