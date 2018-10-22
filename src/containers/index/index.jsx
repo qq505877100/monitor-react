@@ -5,10 +5,15 @@ import "./index.css";
 //研发组件导入
 import YfMenu from "../../components/menus/yfMenu";
 import Api from "../../components/yf/api";
+
+
 //运维组件导入
 import YwMenu from "../../components/menus/ywMenu";
 import Cpu from "../../components/yw/server/cpu";
 import Jvm from "../../components/yw/server/jvm";
+import Throughput from "../../components/yw/database/throughput"
+
+
 //产品组件导入
 import ProductMenu from "../../components/menus/productMenu";
 import UserAccess from "../../components/product/userAccess";
@@ -37,7 +42,7 @@ export default class Index extends Component {
 
     //下拉款点击
     handleChange = (item,key) => {
-        console.log(`item:${item},key:${key}`);//this.props.index.selected
+        console.log(item);//this.props.index.selected
         //console.log("this.props.index.selected",this.props.index.selected);//this.props.index.selected
         if (item.key === "yf") {
             this.props.changeState({selected:'yf',key:'api_monitor'})
@@ -67,7 +72,7 @@ export default class Index extends Component {
             ["cpu_info",<Cpu cey={key} selected={selected} result={result}/>],
             ["memory_info",<h1>内存信息</h1>],
             ["file_sys",<h1>文件系统信息</h1>],
-            ["Throughput",<h1>吞吐量</h1>],
+            ["Throughput",<Throughput cey={key} selected={selected} result={result}/>],
             ["performance",<h1>性能</h1>],
             ["connection",<h1>连接</h1>],
             ["buffer_pool",<h1>缓冲池使用量</h1>],
