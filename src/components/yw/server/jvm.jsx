@@ -1,31 +1,58 @@
 import React, { Component } from 'react';
-import echarts from 'echarts/lib/echarts';
-//import { pie, tooltip, title } from 'echarts'
+import ReactEcharts from 'echarts-for-react';
+import _x from "../../../js/_x/index";
+
 
 import { ywGetJvm } from '../../../reducers/yw/yw.reducer';
 import { connect } from 'react-redux';
 
-import "../../../css/yw/server/jvm.css"
+import "../../../css/yw/server/jvm.css";
+
+const Request = _x.util.request;
 
 @connect(
     state => state.ywReducer,//要哪些状态
     { ywGetJvm }//需要什么动作
 )
 export default class Jvm extends Component {
-    //侧边栏点击修改props渲染数据prpos.result后台获取的数据
-    componentWillReceiveProps(props) {
-        console.log('jvm-componentWillReceiveProps11111111111111111', props)
-        
+    constructor(props) {
+        super(props);
+        this.state = {
+            isError: false,
+            jvmUsed: 4000, //使用的jvm内存
+            jvmTotal: 10000 //总大小
+        };
     }
 
     componentDidMount() {
-        console.log("jvm-componentDidMount", this.props)
-        //請求參數
-        //this.props.ywGetJvm();
+        //获取图表数据
+        // this.getJvmData();
+
+        //請求參數 //this.props.ywGetJvm();
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('jvm'));
+        // var myChart = echarts.init(document.getElementById('jvm'));
         // 绘制图表
-        myChart.setOption({
+        
+    }
+
+    //获取jvm内存信息
+    getJvmData = () => {
+        Request.request("api/back/monitor_server/jvm",{},(res) => {
+            console.log(res);
+            if (res.result) {
+                this.setState({jvmTotal: res.data.jvmTotal,
+                    jvmUsed: res.data.jvmUsed})
+            }
+        },(error) => {
+            //应该显示暂无数据
+            this.setState({jvmTotal: 0,
+                jvmUsed: 0})
+        })
+    }
+
+    //设置饼图option选项信息
+    getOption = () => {
+        let option = {
             title: {
                 text: 'jvm使用情况',
                 left: 'center',
@@ -38,22 +65,16 @@ export default class Jvm extends Component {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
-            // visualMap: {
-            //     show: false,
-            //     min: 80,
-            //     max: 600,
-            //     inRange: {
-            //         colorLightness: [0, 1]
-            //     }
-            // },
             series: [
                 {
                     name: 'jvm使用情况',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '50%'],
-                    startAngle: 0,
-                    data: [{name:"已使用内存",value:65535},{name: "剩余内存",value: 20000}],
+                    startAngle: 90,
+                    clockwise: false,
+                    data: [{name:"已使用内存",value: this.state.jvmUsed},
+                        {name: "剩余内存",value: this.state.jvmTotal - this.state.jvmUsed}],
                     // roseType: 'area',
                     label: {
                         normal: {
@@ -62,22 +83,7 @@ export default class Jvm extends Component {
                             }
                         }
                     },
-                    /* labelLine: {
-                        normal: {
-                            lineStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
-                            },
-                            smooth: 0.2,
-                            length: 10,
-                            length2: 20
-                        }
-                    }, */
                     itemStyle: {
-                        /* normal: {
-                            color: 'green',
-                            shadowBlur: 200,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
-                        }, */
                         color: {
                             type: 'linear',
                             x: 0,
@@ -92,7 +98,6 @@ export default class Jvm extends Component {
                             globalCoord: false // 缺省为 false
                         }
                     },
-
                     animationType: 'scale',
                     animationEasing: 'elasticOut',
                     animationDelay: function (idx) {
@@ -100,12 +105,18 @@ export default class Jvm extends Component {
                     }
                 }
             ]
-        });
+        }
+        return option;
     }
     render() {
         return (
             <div className="jvm-content">
-                <div id="jvm" className="jvm-chart" style={{  }}></div>
+                {
+                    this.state.jvmTotal ? 
+                        <ReactEcharts className="jvm-chart" style={{width: 800,height: 800,margin:"0 auto"}}
+                        option={this.getOption()}/>
+                        : <div>暂无数据</div>
+                }
             </div>
         );
     }

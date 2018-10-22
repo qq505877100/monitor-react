@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import echarts from 'echarts/lib/echarts';
-import { bar, tooltip, title } from 'echarts'
+import GaugeChart from "../../../components/bascCharts/gauge-echart";
+import _x from "../../../js/_x/index";
+import "../../../css/yw/server/cpu.css";
+
 import { ywGetCpu } from '../../../reducers/yw/yw.reducer';
 import { connect } from 'react-redux';
 @connect(
@@ -8,64 +10,57 @@ import { connect } from 'react-redux';
     { ywGetCpu }//需要什么动作
 )
 export default class Cpu extends Component {
-    componentWillReceiveProps(props){
-        // console.log('cpu-componentWillReceiveProps',props)
-        
-    }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: []//
+        }
+    }
     componentDidMount() {
         //渲染数据
         //this.props.ywGetCpu();
-        var myChart = echarts.init(document.getElementById('cpu'),'dark');
-        myChart.setOption({
-            title: {
-                text: 'cpu信息' ,
-                left: 'center',
-                top: 20,
-                textStyle: {
-                    color: '#ccc'
+        //请求数据
+        this.getCpuData();
+        
+    }
+
+    getCpuData = () => {
+        _x.util.request.request("api/back/monitor_server/cpu",{},(res) => {
+            let data = res.data;
+            if (data.result) {
+                if (data.data && data.length > 0) {
+                    //封装数据
+                    this.setState({data: data.data})
                 }
-            },
-            tooltip : {
-                formatter: "{a} <br/>{b} : {c}%"
-            },
-            toolbox: {
-                feature: {
-                    restore: {},
-                    saveAsImage: {}
-                }
-            },
-            series: [
-                {
-                    name: 'cpu使用率',
-                    type: 'gauge',
-                    title: {
-                        color: "white"
-                    },
-                    detail: {
-                        /* formatter:()=>{
-                        props.result.forEach(element => {
-                            return element.value+'%'
-                        });
-                        }, */
-                        formatter : "{value}%",
-                        
-                    },
-                    data: [{name:"cpu使用率",value: Math.ceil(Math.random()*100)}]
-                }
-            ]
+            }
+            console.log(res)
+        }).catch((error) => {
+            //错误处理
+            console.log(error);
+            //重置数据，为空
+            this.setState({data: []});
         });
     }
+    
     render() {
         let style={
-            width: 800,
-            height: 800 ,
+            width: 400,
+            height: 400,
             margin:'0 auto',
-            color: 'white'
+            color: 'white',
+            display: "inline-block"
         }
         return (
-            <div>
-                <div id="cpu" style={style}></div>
+            <div className="cpu-content">
+            {
+                this.state.data.length === 0 ? 
+                    [1,2,3,4].map((item,index)=> (
+                        <GaugeChart style={style} title={`cpu${index}使用率`} value={parseInt(Math.random() * 100)}></GaugeChart>
+                    ))
+                    :
+                    <div>暂无数据</div>
+            }
             </div>
         );
     }

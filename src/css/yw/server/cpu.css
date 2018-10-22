@@ -1,0 +1,9 @@
+.cpu-content {
+    margin: 20px auto;
+}
+
+.jvm-content .jvm-chart{
+    width: 800px;
+    height: 800px; 
+    margin: 0 auto;
+}

@@ -2,13 +2,13 @@
  * @Author: lxx 
  * @Date: 2018-08-27 22:14:20 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-09-29 14:45:22
+ * @Last Modified time: 2018-10-22 13:04:11
  */
 /**
  * 全局变量
  */
 const G = {
-    defaultServerUrl: "http://localhost:8090/monitor",
+    defaultServerUrl: "http://localhost:8091/cloud",
     title: "课堂生态",
     dataServices: "",
     rootPath: '',
