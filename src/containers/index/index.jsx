@@ -67,7 +67,7 @@ export default class Index extends Component {
         //研发
         let yf = new Map([
             // ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
-            ["api_monitor",<UserAccess/>]
+            ["api_monitor",<Throughput/>]
         ]);
         //运维
         let yw = new Map([
