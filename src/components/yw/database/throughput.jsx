@@ -102,10 +102,14 @@ export default class Throughput extends Component{
 
     //点击下穿到具体时间
     itemOnClick=(param)=>{
+        /*********************************************/
         console.log(param);
         let type=param.seriesIndex;//请求类型
         let date=param.name;//时间(天)
+        
+                         //请求数据
 
+         /**********************************************/
 
         let arr=[];//横坐标
         let count=[];//数据
