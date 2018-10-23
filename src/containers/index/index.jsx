@@ -72,7 +72,7 @@ export default class Index extends Component {
             ["cpu_info",<Cpu cey={key} selected={selected} result={result}/>],
             ["memory_info",<h1>内存信息</h1>],
             ["file_sys",<h1>文件系统信息</h1>],
-            ["Throughput",<Throughput cey={key} selected={selected} result={result}/>],
+            ["Throughput",<Throughput/>],
             ["performance",<h1>性能</h1>],
             ["connection",<h1>连接</h1>],
             ["buffer_pool",<h1>缓冲池使用量</h1>],
