@@ -8,7 +8,12 @@ export default class YwMenu extends Component {
                 { key: 'jvm', name: 'jvm', icon: "book",children: []},
                 { key: 'cpu_info', name: 'cpu信息', icon: "book",children: []},
                 { key: 'memory_info', name: '内存信息', icon: "book",children: []},
-                { key: 'file_sys', name: '文件系统信息', icon: "book",children: []}
+                { key: 'file_sys', name: '文件系统信息', icon: "book",children: []},
+                { key: 'file_sys_realtime', name: '文件系统实时信息', icon: "book",children: []},
+                { key: 'tcp_info', name: 'TCP连接信息', icon: "book",children: []},
+                { key: 'thread_info', name: '线程信息', icon: "book",children: []},
+
+
             ]},
             {key: "databaseM",name: "数据库监控",icon: "",children:[
                 { key: 'Throughput', name: '吞吐量', icon: "book",children: []},

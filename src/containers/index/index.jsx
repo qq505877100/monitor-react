@@ -11,6 +11,9 @@ import Api from "../../components/yf/api";
 import YwMenu from "../../components/menus/ywMenu";
 import Cpu from "../../components/yw/server/cpu";
 import Jvm from "../../components/yw/server/jvm";
+
+import MemoryInfo from "../../components/yw/server/memoryInfo";
+import FileSystem from "../../components/yw/server/fileSystem";
 import Throughput from "../../components/yw/database/throughput"
 
 
@@ -68,10 +71,15 @@ export default class Index extends Component {
         ]);
         //运维
         let yw = new Map([
+          
             ["jvm",<Jvm cey={key} selected={selected} result={result}/>],
             ["cpu_info",<Cpu cey={key} selected={selected} result={result}/>],
-            ["memory_info",<h1>内存信息</h1>],
-            ["file_sys",<h1>文件系统信息</h1>],
+            ["memory_info",<MemoryInfo></MemoryInfo>],
+            ["file_sys",<FileSystem></FileSystem>],
+            ["file_sys_realtime",<h1>文件系统实时信息</h1>],
+            ["tcp_info",<h1>TCP连接信息</h1>],
+            ["thread_info",<h1>线程信息</h1>],
+
             ["Throughput",<Throughput cey={key} selected={selected} result={result}/>],
             ["performance",<h1>性能</h1>],
             ["connection",<h1>连接</h1>],

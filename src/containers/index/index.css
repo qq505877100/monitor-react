@@ -29,8 +29,11 @@ html,body,#root{
         background-image: url(./images/left3.jpg);
 }
 .content {
-    background-image: url(./images/body.jpg);
-    opacity: 0.9;
+    background-image: url(./images/bc.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0.88;
     float: left;
     /* color: "white";
     font-size:'100px';

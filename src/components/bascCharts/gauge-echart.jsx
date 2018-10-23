@@ -2,8 +2,6 @@
 import React,{Component} from "react";
 import ReactEcharts from 'echarts-for-react';
 
-
-
 export default class GaugeChart extends Component {
 
     /**

@@ -46,7 +46,7 @@ export default class Cpu extends Component {
     render() {
         let style={
             width: 400,
-            height: 400,
+            height: 350,
             margin:'0 auto',
             color: 'white',
             display: "inline-block"
@@ -55,8 +55,8 @@ export default class Cpu extends Component {
             <div className="cpu-content">
             {
                 this.state.data.length === 0 ? 
-                    [1,2,3,4].map((item,index)=> (
-                        <GaugeChart style={style} title={`cpu${index}使用率`} value={parseInt(Math.random() * 100)}></GaugeChart>
+                    [1,2,3,4,5].map((item,index)=> (
+                        <GaugeChart key={item} style={style} title={`cpu${item}使用率`} value={parseInt(Math.random() * 100)}></GaugeChart>
                     ))
                     :
                     <div>暂无数据</div>
