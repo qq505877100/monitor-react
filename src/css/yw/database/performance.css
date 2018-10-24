@@ -1,0 +1,13 @@
+.choose-date{
+    width: 265px;
+    height: 32px;
+    float: right;
+    margin-top: -60px;
+    margin-right: 120px;
+}
+.date-span{
+    float: left;
+    font-size: 15px;
+    text-align: center;
+    line-height:32px; 
+}
