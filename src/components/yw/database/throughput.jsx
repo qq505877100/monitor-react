@@ -26,12 +26,12 @@ export default class Throughput extends Component{
     
    
     componentDidMount(){
-        this.getData();
+        this.initGetData();
     }
 
 
     //初始化渲染
-    getData(date,dateString){
+    initGetData(date,dateString){
         let searDate={}
         if(!date && !dateString){
             searDate={
@@ -121,7 +121,8 @@ export default class Throughput extends Component{
 
     //时间选择
     onChange=(date, dateString) =>{
-        this.getData(dateString[0],dateString[1]);
+        console.log(dateString);
+        this.initGetData(dateString[0],dateString[1]);
     }
 
     //点击下穿到具体时间
@@ -258,7 +259,7 @@ export default class Throughput extends Component{
 
     //返回goBack
     goBack=()=>{
-       this.getData();
+       this.initGetData();
        this.setState({
            isShowButton:false,
            isShowDate:true
