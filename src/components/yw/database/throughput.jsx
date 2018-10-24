@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import echarts from 'echarts/lib/echarts';
-import { DatePicker } from 'antd';
+import { DatePicker,Icon,Button } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 
 import "../../../css/yw/database/throughput.css"
@@ -10,24 +10,177 @@ const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 export default class Throughput extends Component{
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            data:[],
+            xData:[],
+            series:[],
+            isShow:false
+        };
     }
     
-    //初始化渲染
+   
     componentDidMount(){
-        
+        this.init();
     }
 
+
+    //初始化渲染
+    init(){
+        /*********************************************/
+        
+                         //请求数据
+
+         /**********************************************/
+
+         let arr=[];//设置横坐标
+         let qusValue=[];//吞吐量数据数据
+         let selectValue=[];//查询量数据
+         let insertValue=[];//插入量数据
+         let deleteValue=[];//删除量数据
+         let updateValue=[];//更新量数据
+ 
+         result.listQus.forEach(function(value,index,array){
+             arr.push(value.date);
+             qusValue.push(value.count);
+         });
+ 
+         result.listSelect.forEach(function(value,index,array){
+             selectValue.push(value.count);
+         });
+ 
+         result.listInsert.forEach(function(value,index,array){
+             insertValue.push(value.count);
+         });
+ 
+         result.listDelete.forEach(function(value,index,array){
+             deleteValue.push(value.count);
+         });
+ 
+         result.listUpdate.forEach(function(value,index,array){
+             updateValue.push(value.count);
+         });
+ 
+ 
+         this.setState({
+             xData:arr,
+             data:['吞吐量数据','查询数量','插入语句数量','删除数量','更新数量'],
+             series:[
+                 {
+                     name:'吞吐量数据',
+                     type:'line',
+                     stack: '总量',
+                     data:qusValue
+                 },
+                 {
+                     name:'查询数量',
+                     type:'line',
+                     stack: '总量',
+                     data:selectValue
+                 },
+                 {
+                     name:'插入语句数量',
+                     type:'line',
+                     stack: '总量',
+                     data:insertValue
+                 },
+                 {
+                     name:'删除数量',
+                     type:'line',
+                     stack: '总量',
+                     data:deleteValue
+                 },
+                 {
+                     name:'更新数量',
+                     type:'line',
+                     stack: '总量',
+                     data:updateValue
+                 }
+             ]
+         })
+    }
+
+
+    //点击下穿到具体时间
+    itemOnClick=(param)=>{
+        /*********************************************/
+        console.log(param);
+        let type=param.seriesIndex;//请求类型
+        let date=param.name;//时间(天)
+        
+                         //请求数据
+
+         /**********************************************/
+
+        let arr=[];//横坐标
+        let count=[];//数据
+        dateilResult.forEach(function(value,index,array){
+            arr.push(value.date);
+            count.push(value.count)
+        });
+
+        
+        //设置数据
+        let typeName=type==0?['吞吐量数据']:type==1?['查询数量']:type==2?['插入语句数量']:type==3?['删除数量']:['更新数量']
+        this.setState({
+            isShow:true,
+            data:typeName,
+            xData:arr,
+            series:[
+                {
+                    name:'吞吐量数据',
+                    type:'line',
+                    stack: '总量',
+                    data:'吞吐量数据'==typeName[0]?count:[]
+                },
+                {
+                    name:'查询数量',
+                    type:'line',
+                    stack: '总量',
+                    data:'查询数量'==typeName[0]?count:[]
+                },
+                {
+                    name:'插入语句数量',
+                    type:'line',
+                    stack: '总量',
+                    data:'插入语句数量'==typeName[0]?count:[]
+                },
+                {
+                    name:'删除数量',
+                    type:'line',
+                    stack: '总量',
+                    data:'删除数量'==typeName[0]?count:[]
+                },
+                {
+                    name:'更新数量',
+                    type:'line',
+                    stack: '总量',
+                    data:'更新数量'==typeName[0]?count:[]
+                }
+            ]
+        },()=>{
+            console.log(this.state)
+        })
+       
+       
+    }
+
+    //设置echart
     getOption = () => {
         let option = {
             title: {
-                text: '折线图堆叠'
+                text: '吞吐量',
+                textStyle: {
+                    color: "#fff"
+                }
             },
             tooltip: {
                 trigger: 'axis'
             },
             legend: {
-                data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                data:this.state.data,
+                textStyle: {
+                    color: "#fff"
+                }   
             },
             grid: {
                 left: '3%',
@@ -43,54 +196,171 @@ export default class Throughput extends Component{
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['周一','周二','周三','周四','周五','周六','周日']
+                data: this.state.xData,
+                axisLine: {
+                    lineStyle: {
+                        color: '#FFFFFF',
+                    }
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: 'white'
+                    }
+                }
             },
             yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    name:'邮件营销',
-                    type:'line',
-                    stack: '总量',
-                    data:[120, 132, 101, 134, 90, 230, 210]
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#FFFFFF',
+                    }
                 },
-                {
-                    name:'联盟广告',
-                    type:'line',
-                    stack: '总量',
-                    data:[220, 182, 191, 234, 290, 330, 310]
+                axisLabel: {
+                    textStyle: {
+                        color: '#fff'
+                    }
                 },
-                {
-                    name:'视频广告',
-                    type:'line',
-                    stack: '总量',
-                    data:[150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name:'直接访问',
-                    type:'line',
-                    stack: '总量',
-                    data:[320, 332, 301, 334, 390, 330, 320]
-                },
-                {
-                    name:'搜索引擎',
-                    type:'line',
-                    stack: '总量',
-                    data:[820, 932, 901, 934, 1290, 1330, 1320]
+                splitLine: {
+                    show: false
                 }
-            ]
+            },
+            series: this.state.series
         };
         return option;
     }
 
+
+    //返回goBack
+    goBack=()=>{
+       this.init();
+       this.setState({
+           isShow:false
+       })
+    }
+
+
+
     render(){
+        const style={
+            display:this.state.isShow?'block':'none'
+        }
         return (
         <div className="throughput-content">
-            <ReactEcharts option={this.getOption()} theme={"dark"} opts={{
-                height:600
-            }}/>
+            <Button className="button-style" type="dashed" style={style} onClick={this.goBack}>
+                <Icon type="backward" />Go back
+            </Button>
+            <ReactEcharts style={{marginTop:'80px'}} option={this.getOption()} opts={{height:600}} 
+            onEvents={{"click":this.itemOnClick}}/>
         </div>
         )
     }
 }
+
+
+
+
+
+
+
+//模拟后台返回参数
+var result={//初始化数据
+    //吞吐量数据
+    "listQus":[
+        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+            ],
+    //数据库已经执行的查询数量
+    "listSelect":[
+        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+    ],
+    //数据库已经执行插入语句数量
+    "listInsert":[
+        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+    ],
+    //删除数量
+    "listDelete":[
+        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+    ],
+    //更新数量
+    "listUpdate":[
+        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+    ]
+}
+
+
+var dateilResult=[//数据详情
+    {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:56:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:56:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:57:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:57:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:58:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:58:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:59:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 08:59:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:00:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:00:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:01:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:01:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:02:06"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:02:36"
+      },
+      {
+        "count": parseInt(Math.random()*100),
+        "date": "2018-08-01 09:03:06"
+      }
+]
