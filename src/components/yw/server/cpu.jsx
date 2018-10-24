@@ -51,16 +51,20 @@ export default class Cpu extends Component {
             color: 'white',
             display: "inline-block"
         }
+        
         return (
             <div className="cpu-content">
-            {
-                this.state.data.length === 0 ? 
-                    [1,2,3,4,5].map((item,index)=> (
-                        <GaugeChart key={item} style={style} title={`cpu${item}使用率`} value={parseInt(Math.random() * 100)}></GaugeChart>
-                    ))
-                    :
-                    <div>暂无数据</div>
-            }
+                <div className="cpu-title">
+                    <h1>cpu使用情况</h1>
+                </div>
+                {
+                    this.state.data.length === 0 ? 
+                        [1,2,3,4,5].map((item,index)=> (
+                            <GaugeChart key={item} style={style} title={`cpu${item}使用率`} value={parseInt(Math.random() * 100)}></GaugeChart>
+                        ))
+                        :
+                        <div>暂无数据</div>
+                }
             </div>
         );
     }

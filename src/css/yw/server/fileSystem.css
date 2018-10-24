@@ -1,9 +1,9 @@
-.memory-content {
+.file-sys-content {
     height: 100%;
     position: relative;
 }
 
-.memory-content .memory-peichart {
+.file-sys-content .file-sys-content-linechart {
     width: 100%;
     position: absolute;
     top: 50%;

@@ -1,9 +1,10 @@
-.memory-content {
+/* 媒体查询 */
+.realtime-content {
     height: 100%;
     position: relative;
 }
 
-.memory-content .memory-peichart {
+.realtime-content .realtime-content-piechart {
     width: 100%;
     position: absolute;
     top: 50%;

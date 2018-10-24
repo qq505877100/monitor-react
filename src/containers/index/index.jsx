@@ -14,6 +14,9 @@ import Jvm from "../../components/yw/server/jvm";
 
 import MemoryInfo from "../../components/yw/server/memoryInfo";
 import FileSystem from "../../components/yw/server/fileSystem";
+import SystemRealtime from "../../components/yw/server/fileSystemRealtime";
+import TcpInfo from "../../components/yw/server/TcpInfo"
+
 import Throughput from "../../components/yw/database/throughput"
 
 
@@ -63,11 +66,11 @@ export default class Index extends Component {
         let key = this.props.index.key;
         let selected = this.props.index.selected;
         let result = this.props.yfReducer.result;
-        console.log(`MenuPage: ${key},${selected},${result}`)
+        // console.log(`MenuPage: ${key},${selected},${result}`)
         //研发
         let yf = new Map([
             // ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
-            ["api_monitor",<UserAccess/>]
+            ["api_monitor",<TcpInfo/>]
         ]);
         //运维
         let yw = new Map([
@@ -76,8 +79,8 @@ export default class Index extends Component {
             ["cpu_info",<Cpu cey={key} selected={selected} result={result}/>],
             ["memory_info",<MemoryInfo></MemoryInfo>],
             ["file_sys",<FileSystem></FileSystem>],
-            ["file_sys_realtime",<h1>文件系统实时信息</h1>],
-            ["tcp_info",<h1>TCP连接信息</h1>],
+            ["file_sys_realtime",<SystemRealtime></SystemRealtime>],
+            ["tcp_info",<TcpInfo></TcpInfo>],
             ["thread_info",<h1>线程信息</h1>],
 
             ["Throughput",<Throughput cey={key} selected={selected} result={result}/>],
@@ -110,7 +113,7 @@ export default class Index extends Component {
         //遍历map根据不同的selected,key返回对应的echarts图表
         let echarts;
         for(let [key1,value1] of map) {
-            console.log(`map1: ${key1},${value1}`)
+            // console.log(`map1: ${key1},${value1}`)
             if (key1 === selected) {
                 for(let [key2,value2] of value1) {
                     console.log(`map2: ${key2},${value2}`)
@@ -123,7 +126,7 @@ export default class Index extends Component {
                 break;
             }
         }
-        console.log("echarts: sdasd    " + echarts)
+        // console.log("echarts: sdasd    " + echarts)
         return (echarts);//返回菜单栏点击要展示的组件
     }
     //切换导航栏时，同时改变左侧的菜单栏显示板块

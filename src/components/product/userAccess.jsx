@@ -11,7 +11,7 @@ const Search = Input.Search;
 const DEFAULT_VALUE = {
     date: moment(new Date()),
     startTime: moment(new Date()),
-    endTime: moment(new Date()).add(7, "days"),
+    endTime: moment(new Date()).add(-7, "days"), 
 }
 export default class UserAccess extends Component {
 

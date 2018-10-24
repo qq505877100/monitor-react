@@ -76,15 +76,17 @@ export default class MemoryInfo extends Component {
             display: "inline-block"
         }
         return (
-            <div className="cpu-content">
-            {
-                (this.state.data.length && this.state.data.length > 0) ? 
-                    this.state.data.map((item,index)=> (
-                        <PieChart key={index} style={style} title={item.title} data={item.data}></PieChart>
-                    ))
-                    :
-                    <div>暂无数据</div>
-            }
+            <div className="memory-content">
+                <div className="memory-peichart">
+                    {
+                        (this.state.data.length && this.state.data.length > 0) ? 
+                            this.state.data.map((item,index)=> (
+                                <PieChart key={index} style={style} title={item.title} data={item.data}></PieChart>
+                            ))
+                            :
+                            <div>暂无数据</div>
+                    }
+                </div>
             </div>
         );
     }

@@ -2,35 +2,30 @@ import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import _x from "../../../js/_x/index";
 
-import "../../../css/yw/server/fileSystem.css";
+import "../../../css/yw/server/tcpInfo.css";
+
 
 const Request = _x.util.request;
 
-export default class FileSystem extends Component {
+export default class TcpInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             xAxis: [],
             yAxis: [], 
-            title: [],
+            title: ["发送的tcp包","接收的tcp包"],
         };
     }
 
     componentDidMount() {
         //获取图表数据
-        this.getFileSystemData();
-
-        //請求參數 //this.props.ywGetJvm();
-        // 基于准备好的dom，初始化echarts实例
-        // var myChart = echarts.init(document.getElementById('jvm'));
-        // 绘制图表
+        this.getCupInfoData();
         
-
     }
 
     //获取jvm内存信息
-    getFileSystemData = () => {
-        Request.request("api/back/monitor_server/disk", {}, (res) => {
+    getCupInfoData = () => {
+        Request.request("api/web/back/monitor_server/tcp", {}, (res) => {
             console.log(res);
             if (res.result) {
                 this.setState({
@@ -45,32 +40,43 @@ export default class FileSystem extends Component {
                 jvmUsed: 0
             })
         })
-        /* {"date":"2018-02-05","diskUsed":90679496},
-        {"date":"2018-02-06","diskUsed":90679496}}, */
-        let data = [{
-            name: "磁盘1使用情况",
-            data: [{date: "2018-10-13",diskUsed: 3000},{date: "2018-10-14",diskUsed: 3100},{date: "2018-10-15",diskUsed: 3500},
-            {date: "2018-10-16",diskUsed: 2500},{date: "2018-10-17",diskUsed: 2800}]
-        },{
-            name: "磁盘2使用情况",
-            data: [{date: "2018-10-13",diskUsed: 2000},{date: "2018-10-14",diskUsed: 2100},{date: "2018-10-15",diskUsed: 2100},
-            {date: "2018-10-16",diskUsed: 2100},{date: "2018-10-17",diskUsed: 2100}]
-        }]
-        let xAxis = [],yAxis=[],title = [],flag = true;
-        for (let item of data) {
-            title.push(item.name);
-            let tem = []
-            for (let data of item.data) {
-                if (flag) {
-                    //xAxis
-                    xAxis.push(data.date);
-                }
-                tem.push(data.diskUsed);
-            }
-            yAxis.push(tem);
-            flag = false;
+       
+       /*  "listSend":{
+            {"date":"2018-02-03 16:38:40","count":23},
+            {"date":"2018-02-03 16:38:45","count":23},
+            {"date":"2018-02-03 16:38:50","count":23},
+            {"date":"2018-02-03 16:38:55","count":23}//数据集合，list//
+            }, */
+            let title=[],xAxis= [],yAxis = [];
+        let data = {
+            listSend: [
+                {date:"2018-02-03 16:38:40",count:23},
+                {date:"2018-02-03 16:38:45",count:24},
+                {date:"2018-02-03 16:38:50",count:25},
+                {date:"2018-02-03 16:38:55",count:26}
+            ],
+            listReceived: [
+                {date:"2018-02-03 16:38:40",count:34},
+                {date:"2018-02-03 16:38:45",count:35},
+                {date:"2018-02-03 16:38:50",count:36},
+                {date:"2018-02-03 16:38:55",count:37}
+            ]
         }
-        this.setState({xAxis,yAxis,title})
+        let tem = []
+        for (let item of data.listSend) {
+            xAxis.push(item.date);
+            tem.push(item.count)
+        }
+        yAxis.push(tem);
+        tem = []
+        for (let item of data.listReceived) {
+            tem.push(item.count)
+        }
+        yAxis.push(tem);
+        console.log(xAxis);
+        console.log(yAxis);
+
+        this.setState({xAxis,yAxis});
 
 
     }
@@ -79,7 +85,7 @@ export default class FileSystem extends Component {
     getOption = () => {
         let option = {
             title: {
-                text: '文件系统历史信息',
+                text: 'tcp连接信息',
                 left: "center",
                 top: 10,
                 textStyle: {
@@ -88,12 +94,6 @@ export default class FileSystem extends Component {
             },
             tooltip: {
                 trigger: 'axis',
-                /* axisPointer: {
-                    type: 'cross',
-                    label: {
-                        backgroundColor: '#6a7985'
-                    }
-                } */
             },
             legend: {
                 orient: "vertical",
@@ -164,15 +164,14 @@ export default class FileSystem extends Component {
                     areaStyle: {}, */
                     data: this.state.yAxis[1]
                 },
-
             ]
         };
         return option;
     }
     render() {
         return (
-            <div className="file-sys-content">
-                <div className="file-sys-content-linechart">
+            <div className="tcp-info-content">
+                <div className="tcp-info-content-linechart">
                     {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
                             <ReactEcharts className="jvm-chart" style={{ width: 900, height: 600, margin: "0 auto" }}
@@ -180,7 +179,6 @@ export default class FileSystem extends Component {
                             : <div>暂无数据</div>
                     }
                 </div>
-                
             </div>
         );
     }

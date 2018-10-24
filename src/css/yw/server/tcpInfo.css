@@ -1,9 +1,9 @@
-.memory-content {
+.tcp-info-content {
     height: 100%;
     position: relative;
 }
 
-.memory-content .memory-peichart {
+.tcp-info-content .tcp-info-content-linechart {
     width: 100%;
     position: absolute;
     top: 50%;
