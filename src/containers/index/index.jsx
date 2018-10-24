@@ -81,7 +81,7 @@ export default class Index extends Component {
             ["memory_info",<MemoryInfo></MemoryInfo>],
             ["file_sys",<FileSystem></FileSystem>],
             ["file_sys_realtime",<SystemRealtime></SystemRealtime>],
-            ["tcp_info",<TcpInfo></TcpInfo>],
+            ["tcp_info",<TcpInfo/>],
             ["thread_info",<ThreadInfo></ThreadInfo>],
 
             ["Throughput",<Throughput/>],

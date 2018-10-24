@@ -88,30 +88,45 @@ export default class Throughput extends Component{
                      name:'吞吐量数据',
                      type:'line',
                      stack: '总量',
+                     areaStyle: {
+                        opacity:0.2
+                     },
                      data:qusValue
                  },
                  {
                      name:'查询数量',
                      type:'line',
                      stack: '总量',
+                     areaStyle: {
+                        opacity:0.2
+                     },
                      data:selectValue
                  },
                  {
                      name:'插入语句数量',
                      type:'line',
                      stack: '总量',
+                     areaStyle: {
+                        opacity:0.2
+                     },
                      data:insertValue
                  },
                  {
                      name:'删除数量',
                      type:'line',
                      stack: '总量',
+                     areaStyle: {
+                        opacity:0.2
+                     },
                      data:deleteValue
                  },
                  {
                      name:'更新数量',
                      type:'line',
                      stack: '总量',
+                     areaStyle: {
+                        opacity:0.2
+                     },
                      data:updateValue
                  }
              ]
@@ -156,30 +171,45 @@ export default class Throughput extends Component{
                     name:'吞吐量数据',
                     type:'line',
                     stack: '总量',
+                    areaStyle: {
+                        opacity:0.2
+                     },
                     data:'吞吐量数据'==typeName[0]?count:[]
                 },
                 {
                     name:'查询数量',
                     type:'line',
                     stack: '总量',
+                    areaStyle: {
+                        opacity:0.2
+                     },
                     data:'查询数量'==typeName[0]?count:[]
                 },
                 {
                     name:'插入语句数量',
                     type:'line',
                     stack: '总量',
+                    areaStyle: {
+                        opacity:0.2
+                     },
                     data:'插入语句数量'==typeName[0]?count:[]
                 },
                 {
                     name:'删除数量',
                     type:'line',
                     stack: '总量',
+                    areaStyle: {
+                        opacity:0.2
+                     },
                     data:'删除数量'==typeName[0]?count:[]
                 },
                 {
                     name:'更新数量',
                     type:'line',
                     stack: '总量',
+                    areaStyle: {
+                        opacity:0.2
+                     },
                     data:'更新数量'==typeName[0]?count:[]
                 }
             ]
