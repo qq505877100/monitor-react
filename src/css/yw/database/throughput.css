@@ -11,3 +11,17 @@
     margin-left: 20px;
     display: none
 }
+.range-picker{
+    display: block;
+    width: 370px;
+    height: 32px;
+    float: right;
+    margin-top: -60px;
+    margin-right: 20px;
+}
+.date-span{
+    float: left;
+    font-size: 15px;
+    text-align: center;
+    line-height:32px; 
+}
