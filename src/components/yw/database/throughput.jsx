@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import echarts from 'echarts/lib/echarts';
 import { DatePicker,Icon,Button } from 'antd';
 import ReactEcharts from 'echarts-for-react';
+// import {DATEX} from "../../../js/_x/util/date"
+import moment from 'moment';
 
 import "../../../css/yw/database/throughput.css"
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
-
+const TIME_VALUE={
+    startTime: moment(new Date()),
+    endTime: moment(new Date()).add(-7, "days"),
+}
 
 export default class Throughput extends Component{
     constructor(props) {
@@ -14,18 +19,32 @@ export default class Throughput extends Component{
             data:[],
             xData:[],
             series:[],
-            isShow:false
+            isShowButton:false,
+            isShowDate:true
         };
     }
     
    
     componentDidMount(){
-        this.init();
+        this.initGetData();
     }
 
 
     //初始化渲染
-    init(){
+    initGetData(date,dateString){
+        let searDate={}
+        if(!date && !dateString){
+            searDate={
+                startTime:TIME_VALUE.startTime.format('YYYY-MM-DD'),
+                endTime:TIME_VALUE.endTime.format('YYYY-MM-DD')
+            }
+        }else{
+            searDate={
+                startTime:date,
+                endTime:dateString
+            }
+        }
+        console.log(searDate);
         /*********************************************/
         
                          //请求数据
@@ -100,6 +119,11 @@ export default class Throughput extends Component{
     }
 
 
+    //时间选择
+    onChange=(date, dateString) =>{
+        this.initGetData(dateString[0],dateString[1]);
+    }
+
     //点击下穿到具体时间
     itemOnClick=(param)=>{
         /*********************************************/
@@ -122,7 +146,8 @@ export default class Throughput extends Component{
         //设置数据
         let typeName=type==0?['吞吐量数据']:type==1?['查询数量']:type==2?['插入语句数量']:type==3?['删除数量']:['更新数量']
         this.setState({
-            isShow:true,
+            isShowButton:true,
+            isShowDate:false,
             data:typeName,
             xData:arr,
             series:[
@@ -221,7 +246,8 @@ export default class Throughput extends Component{
                     }
                 },
                 splitLine: {
-                    show: false
+                    show: false,
+                    type:'dashed'
                 }
             },
             series: this.state.series
@@ -232,25 +258,38 @@ export default class Throughput extends Component{
 
     //返回goBack
     goBack=()=>{
-       this.init();
+       this.initGetData();
        this.setState({
-           isShow:false
+           isShowButton:false,
+           isShowDate:true
        })
     }
 
 
 
     render(){
-        const style={
-            display:this.state.isShow?'block':'none'
+        const buttonStyle={
+            display:this.state.isShowButton?'block':'none'
+            
         }
+        const dateStyle={
+            display:this.state.isShowDate?'block':'none'
+        }
+
+
         return (
         <div className="throughput-content">
-            <Button className="button-style" type="dashed" style={style} onClick={this.goBack}>
+        <div style={dateStyle} className="range-picker">
+            <span className="date-span">日期：</span>
+            <RangePicker onChange={this.onChange} style={{float:'right'}}/>
+        </div>
+            <Button className="button-style" type="dashed" style={buttonStyle} onClick={this.goBack}>
                 <Icon type="backward" />Go back
             </Button>
-            <ReactEcharts style={{marginTop:'80px'}} option={this.getOption()} opts={{height:600}} 
-            onEvents={{"click":this.itemOnClick}}/>
+            <div style={{ width: '80%',height: '80%',margin: '20px auto'}}>
+                <ReactEcharts style={{marginTop:'80px'}} option={this.getOption()} opts={{height:600}} 
+                onEvents={{"click":this.itemOnClick}}/>
+            </div>
         </div>
         )
     }
