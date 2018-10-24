@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import LineChart from "../../../components/bascCharts/line-echart"
 import _x from "../../../js/_x/index";
+import {DatePicker} from "antd";
 
 import "../../../css/yw/server/fileSystem.css";
 
 const Request = _x.util.request;
+const { RangePicker } = DatePicker;
 
 export default class FileSystem extends Component {
     constructor(props) {
@@ -80,6 +82,10 @@ export default class FileSystem extends Component {
     render() {
         return (
             <div className="file-sys-content">
+                <div className="file-sys-search">
+                    <span>日期选择：</span>
+                    <RangePicker size={"default"}></RangePicker>
+                </div>
                 <div className="file-sys-content-linechart">
                     {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
