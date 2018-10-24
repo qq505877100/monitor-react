@@ -58,12 +58,12 @@ export default class LineChart extends Component {
                 data: this.props.xAxis,
                 boundaryGap: true,
                 axisLabel: {
+                    rotate: 45,
                     textStyle: {
                         color: 'white'
                     }
                 },
                 axisLine: {
-                    rotate: 45,
                     lineStyle: {
                         color: '#FFFFFF',
                     }

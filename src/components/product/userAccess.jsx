@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
 import _x from "../../js/_x/index";
 import moment from "moment";
-import { Input, Modal, DatePicker, Icon, Table } from 'antd';
+import { Input, Modal, DatePicker, Table } from 'antd';
 
 
 import "../../css/product/userAccess.css"

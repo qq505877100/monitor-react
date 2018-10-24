@@ -31,7 +31,6 @@ import { changeState } from '../../reducers/index.reducer'
 import { connect } from 'react-redux'
 import { Map } from 'core-js';
 
-const Option = Select.Option;
 const { Header, Content, Footer, Sider } = Layout;
 /**
  * yfReducer{getNum(),result},index{selected,key},
