@@ -10,7 +10,6 @@ export default class MemoryInfo extends Component {
         this.state = {
             pieData: []//
         }
-        console.log("constructor")
     }
     componentDidMount() {
         //渲染数据
@@ -48,7 +47,7 @@ export default class MemoryInfo extends Component {
         // 静态数据
         let pieData = { diskList: [] };
 
-        for (let i = 0; i < parseInt(Math.random() * 10); i++) {
+        for (let i = 0; i < parseInt(Math.random() * 10) + 1; i++) {
             let num = Number.parseInt(Math.random() * 100);
             let obj = {
                 diskName: "磁盘" + i + "使用情况",
@@ -63,7 +62,6 @@ export default class MemoryInfo extends Component {
         let style = {
             width: 400,
             height: 400,
-            margin: '0 auto',
             display: "inline-block"
         }
         return (

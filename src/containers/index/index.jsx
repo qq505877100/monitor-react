@@ -15,7 +15,8 @@ import Jvm from "../../components/yw/server/jvm";
 import MemoryInfo from "../../components/yw/server/memoryInfo";
 import FileSystem from "../../components/yw/server/fileSystem";
 import SystemRealtime from "../../components/yw/server/fileSystemRealtime";
-import TcpInfo from "../../components/yw/server/TcpInfo"
+import TcpInfo from "../../components/yw/server/tcpInfo"
+import ThreadInfo from "../../components/yw/server/threadInfo"
 
 import Throughput from "../../components/yw/database/throughput"
 import Performance from "../../components/yw/database/performance"
@@ -82,7 +83,7 @@ export default class Index extends Component {
             ["file_sys",<FileSystem></FileSystem>],
             ["file_sys_realtime",<SystemRealtime></SystemRealtime>],
             ["tcp_info",<TcpInfo></TcpInfo>],
-            ["thread_info",<h1>线程信息</h1>],
+            ["thread_info",<ThreadInfo></ThreadInfo>],
 
             ["Throughput",<Throughput/>],
             ["performance",<Performance/>],

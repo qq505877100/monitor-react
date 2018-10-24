@@ -78,8 +78,11 @@ export default class Jvm extends Component {
                     // roseType: 'area',
                     label: {
                         normal: {
+                            formatter: '{b}：{c}({d}%)',
+                            fontSize: 16,
+                            color: "#fff",
                             textStyle: {
-                                color: 'rgba(255, 255, 255, 0.6)'
+                                color: 'rgba(255, 255, 255, 0.6)',
                             }
                         }
                     },

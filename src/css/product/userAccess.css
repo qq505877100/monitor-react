@@ -148,13 +148,13 @@
     height: 36px;
     font-size: 16px;
     line-height: 36px;
+    border-radius: 5px;
 }
 .select-user {
     background-color: #31a9ff;
 }
 .fxh-product-content .content-search .content-search-switch > span:hover {
     cursor: pointer;
-
 }
 
 /* 信息展示的主题内容 */
