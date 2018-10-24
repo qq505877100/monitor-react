@@ -18,6 +18,7 @@ import SystemRealtime from "../../components/yw/server/fileSystemRealtime";
 import TcpInfo from "../../components/yw/server/TcpInfo"
 
 import Throughput from "../../components/yw/database/throughput"
+import Performance from "../../components/yw/database/performance"
 
 
 //产品组件导入
@@ -70,7 +71,7 @@ export default class Index extends Component {
         //研发
         let yf = new Map([
             // ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
-            ["api_monitor",<TcpInfo/>]
+            ["api_monitor",<Performance/>]
         ]);
         //运维
         let yw = new Map([
@@ -83,8 +84,8 @@ export default class Index extends Component {
             ["tcp_info",<TcpInfo></TcpInfo>],
             ["thread_info",<h1>线程信息</h1>],
 
-            ["Throughput",<Throughput cey={key} selected={selected} result={result}/>],
-            ["performance",<h1>性能</h1>],
+            ["Throughput",<Throughput/>],
+            ["performance",<Performance/>],
             ["connection",<h1>连接</h1>],
             ["buffer_pool",<h1>缓冲池使用量</h1>],
             ["Traffic_statistics",<h1>流量统计</h1>],
