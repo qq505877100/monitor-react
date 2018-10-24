@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactEcharts from 'echarts-for-react';
+import LineChart from "../../../components/bascCharts/line-echart"
 import _x from "../../../js/_x/index";
 
 import "../../../css/yw/server/tcpInfo.css";
@@ -11,9 +11,10 @@ export default class TcpInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: "tcp连接信息",
             xAxis: [],
             yAxis: [], 
-            title: ["发送的tcp包","接收的tcp包"],
+            legend: ["发送的tcp包","接收的tcp包"],
         };
     }
 
@@ -40,25 +41,26 @@ export default class TcpInfo extends Component {
                 jvmUsed: 0
             })
         })
-       
-       /*  "listSend":{
-            {"date":"2018-02-03 16:38:40","count":23},
-            {"date":"2018-02-03 16:38:45","count":23},
-            {"date":"2018-02-03 16:38:50","count":23},
-            {"date":"2018-02-03 16:38:55","count":23}//数据集合，list//
-            }, */
-            let title=[],xAxis= [],yAxis = [];
+        let xAxis= [],yAxis = [];
         let data = {
             listSend: [
                 {date:"2018-02-03 16:38:40",count:23},
                 {date:"2018-02-03 16:38:45",count:24},
                 {date:"2018-02-03 16:38:50",count:25},
+                {date:"2018-02-03 16:38:45",count:20},
+                {date:"2018-02-03 16:38:50",count:35},
+                {date:"2018-02-03 16:38:45",count:24},
+                {date:"2018-02-03 16:38:50",count:29},
                 {date:"2018-02-03 16:38:55",count:26}
             ],
             listReceived: [
                 {date:"2018-02-03 16:38:40",count:34},
-                {date:"2018-02-03 16:38:45",count:35},
+                {date:"2018-02-03 16:38:45",count:31},
                 {date:"2018-02-03 16:38:50",count:36},
+                {date:"2018-02-03 16:38:45",count:19},
+                {date:"2018-02-03 16:38:50",count:25},
+                {date:"2018-02-03 16:38:45",count:28},
+                {date:"2018-02-03 16:38:50",count:25},
                 {date:"2018-02-03 16:38:55",count:37}
             ]
         }
@@ -73,100 +75,7 @@ export default class TcpInfo extends Component {
             tem.push(item.count)
         }
         yAxis.push(tem);
-        console.log(xAxis);
-        console.log(yAxis);
-
         this.setState({xAxis,yAxis});
-
-
-    }
-
-    //设置饼图option选项信息
-    getOption = () => {
-        let option = {
-            title: {
-                text: 'tcp连接信息',
-                left: "center",
-                top: 10,
-                textStyle: {
-                    color: "#fff"
-                }
-            },
-            tooltip: {
-                trigger: 'axis',
-            },
-            legend: {
-                orient: "vertical",
-                data:this.state.title,
-                top: 10,
-                right: 10,
-                textStyle: {
-                    color: "#fff"
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: this.state.xAxis,
-                axisLabel: {
-                    textStyle: {
-                        color: 'white'
-                    }
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#FFFFFF',
-                    }
-                },
-                axisTick: {
-                    show: false
-                }
-            },
-            yAxis: [
-                {
-                    type: 'value',
-                    axisLine: {
-                        lineStyle: {
-                            color: '#FFFFFF',
-                        }
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            color: '#fff'
-                        }
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    splitLine: {
-                        show: false
-                    }
-                }
-            ],
-            series: [
-                {
-                    name: this.state.title[0],
-                    type: 'line',
-                    // stack: '总量',
-                    // areaStyle: {},
-                    data: this.state.yAxis[0]
-                },
-                {
-                    name: this.state.title[1],
-                    type: 'line',
-                    /* stack: '总量',
-                    areaStyle: {}, */
-                    data: this.state.yAxis[1]
-                },
-            ]
-        };
-        return option;
     }
     render() {
         return (
@@ -174,8 +83,9 @@ export default class TcpInfo extends Component {
                 <div className="tcp-info-content-linechart">
                     {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
-                            <ReactEcharts className="jvm-chart" style={{ width: 900, height: 600, margin: "0 auto" }}
-                                option={this.getOption()} />
+                            <LineChart className="jvm-chart" style={{ width: "80%", height: 600, margin: "0 auto" }}
+                                title={this.state.title} legend={this.state.legend} xAxis={this.state.xAxis} yAxis={this.state.yAxis}
+                                />
                             : <div>暂无数据</div>
                     }
                 </div>

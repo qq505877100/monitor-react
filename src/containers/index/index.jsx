@@ -15,7 +15,8 @@ import Jvm from "../../components/yw/server/jvm";
 import MemoryInfo from "../../components/yw/server/memoryInfo";
 import FileSystem from "../../components/yw/server/fileSystem";
 import SystemRealtime from "../../components/yw/server/fileSystemRealtime";
-import TcpInfo from "../../components/yw/server/TcpInfo"
+import TcpInfo from "../../components/yw/server/tcpInfo"
+import ThreadInfo from "../../components/yw/server/threadInfo"
 
 import Throughput from "../../components/yw/database/throughput"
 
@@ -70,7 +71,7 @@ export default class Index extends Component {
         //研发
         let yf = new Map([
             // ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
-            ["api_monitor",<TcpInfo/>]
+            ["api_monitor",<ThreadInfo/>]
         ]);
         //运维
         let yw = new Map([
@@ -81,7 +82,7 @@ export default class Index extends Component {
             ["file_sys",<FileSystem></FileSystem>],
             ["file_sys_realtime",<SystemRealtime></SystemRealtime>],
             ["tcp_info",<TcpInfo></TcpInfo>],
-            ["thread_info",<h1>线程信息</h1>],
+            ["thread_info",<ThreadInfo></ThreadInfo>],
 
             ["Throughput",<Throughput cey={key} selected={selected} result={result}/>],
             ["performance",<h1>性能</h1>],
