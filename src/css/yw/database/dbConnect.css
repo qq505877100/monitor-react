@@ -1,0 +1,26 @@
+.dbConnect-content{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+.button-style{
+    float: left;
+    margin-bottom: 30px;
+    margin-top: -45px;
+    margin-left: 20px;
+    display: none
+}
+.range-picker{
+    display: block;
+    width: 370px;
+    height: 32px;
+    float: right;
+    margin-top: -35px;
+    margin-right: 40px;
+}
+.date-span{
+    float: left;
+    font-size: 15px;
+    text-align: center;
+    line-height:32px; 
+}

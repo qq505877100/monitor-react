@@ -202,7 +202,7 @@ export default class Performance extends Component{
 
     render(){
         return(
-            <div>
+            <div style={{marginTop:'110px'}}>
                 <div className="choose-date">
                     <span className="date-span">日期选择：</span>
                     <DatePicker onChange={this.onChange} style={{float:'right'}}/>
