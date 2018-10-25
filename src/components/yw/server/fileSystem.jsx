@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import LineChart from "../../../components/bascCharts/line-echart"
+import moment from "moment";
+
 import _x from "../../../js/_x/index";
+
 import {DatePicker} from "antd";
 
 import "../../../css/yw/server/fileSystem.css";
 
 const Request = _x.util.request;
 const { RangePicker } = DatePicker;
+const DEFAULT_VALUE = {
+    date: moment(new Date()),
+    startTime: moment(new Date()),
+    endTime: moment(new Date()).add(-7, "days"), 
+}
 
 export default class FileSystem extends Component {
     constructor(props) {
@@ -16,24 +24,23 @@ export default class FileSystem extends Component {
             xAxis: [],
             yAxis: [], 
             legend: [],
+            startTime: DEFAULT_VALUE.startTime,
+            endTime: DEFAULT_VALUE.endTime
         };
     }
 
     componentDidMount() {
         //获取图表数据
         this.getFileSystemData();
-
-        //請求參數 //this.props.ywGetJvm();
-        // 基于准备好的dom，初始化echarts实例
-        // var myChart = echarts.init(document.getElementById('jvm'));
-        // 绘制图表
-        
-
     }
 
     //获取jvm内存信息
     getFileSystemData = () => {
-        Request.request("api/back/monitor_server/disk", {}, (res) => {
+        Request.request("api/back/monitor_server/disk", 
+            {
+                startTime: 1508829810000,
+                endTime: 1540365810000
+            }, (res) => {
             console.log(res);
             if (res.result) {
                 this.setState({
@@ -48,8 +55,7 @@ export default class FileSystem extends Component {
                 jvmUsed: 0
             })
         })
-        /* {"date":"2018-02-05","diskUsed":90679496},
-        {"date":"2018-02-06","diskUsed":90679496}}, */
+    
         let data = [{
             name: "磁盘1使用情况",
             data: [{date: "2018-10-13",diskUsed: 3000},{date: "2018-10-14",diskUsed: 3100},{date: "2018-10-15",diskUsed: 3500},
@@ -65,7 +71,6 @@ export default class FileSystem extends Component {
             let tem = []
             for (let data of item.data) {
                 if (flag) {
-                    //xAxis
                     xAxis.push(data.date);
                 }
                 tem.push(data.diskUsed);
@@ -73,9 +78,16 @@ export default class FileSystem extends Component {
             yAxis.push(tem);
             flag = false;
         }
-        this.setState({xAxis,yAxis,legend})
+        this.setState({xAxis,yAxis,legend});   
+    }
 
-
+    onChangeDate = (date, dateString) => {
+        let startTime = dateString[0];
+        let endTime = dateString[1];
+        //查询数据
+        this.setState({startTime,endTime},() => {
+            //走后台查询
+        })
     }
 
     //设置饼图option选项信息
@@ -84,14 +96,15 @@ export default class FileSystem extends Component {
             <div className="file-sys-content">
                 <div className="file-sys-search">
                     <span>日期选择：</span>
-                    <RangePicker size={"default"}></RangePicker>
+                    <RangePicker size={"default"} onChange={this.onChangeDate} 
+                        defaultValue={[DEFAULT_VALUE.startTime, DEFAULT_VALUE.endTime]}></RangePicker>
                 </div>
                 <div className="file-sys-content-linechart">
                     {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
                             <LineChart style={{ width: 900, height: 600, margin: "0 auto" }}
                                 title={this.state.title} legend={this.state.legend} xAxis={this.state.xAxis} yAxis={this.state.yAxis}
-                                />
+                                yName="磁盘使用大小"/>
                             : <div>暂无数据</div>
                     }
                 </div>
