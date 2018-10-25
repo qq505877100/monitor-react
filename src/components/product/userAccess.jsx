@@ -213,11 +213,7 @@ export default class UserAccess extends Component {
             endTime: 2656255652,//结束时间// 
             accName: record.accName//用户账号//
         };
-        //后台查询数据（先造假数据）
-        /* 	"accName": "050000026000540511",//账号
-	"pageName": "sdjfka",//页面名称  trueName
-       "interviewTime":5445134,//访问时间
-    "logTime": 4455666//访问时长 */
+ 
         let dataSource = [];
         for (let index = 0; index < Number.parseInt(Math.random() * 100); index++) {
             dataSource.push({
@@ -402,7 +398,9 @@ export default class UserAccess extends Component {
     render() {
         // console.log(this.state);
         let onEvents = {
-            "mouseover": this.itemOnClick
+            "mouseover": this.itemOnClick,
+            "hover": this.itemOnClick
+
         }
         const columns = [{
             title: '账号',

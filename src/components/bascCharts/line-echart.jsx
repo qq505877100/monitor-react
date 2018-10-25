@@ -20,7 +20,7 @@ export default class LineChart extends Component {
         for (let i = 0; i < this.props.legend.length; i ++) {
             let item = {
                 name: this.props.legend[i],
-                type: 'line',
+                type: Math.random() ? 'line' : "bar",
                 data: this.props.yAxis[i]
             }
             series.push(item);
@@ -32,7 +32,8 @@ export default class LineChart extends Component {
                 left: "center",
                 top: 10,
                 textStyle: {
-                    color: "#fff"
+                    color: "#fff",
+                    fontSize: 20
                 }
             },
             tooltip: {

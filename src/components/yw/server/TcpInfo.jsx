@@ -85,7 +85,7 @@ export default class TcpInfo extends Component {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
                             <LineChart className="jvm-chart" style={{ width: "80%", height: 600, margin: "0 auto" }}
                                 title={this.state.title} legend={this.state.legend} xAxis={this.state.xAxis} yAxis={this.state.yAxis}
-                                />
+                                yName="发送/接收包数量"/>
                             : <div>暂无数据</div>
                     }
                 </div>

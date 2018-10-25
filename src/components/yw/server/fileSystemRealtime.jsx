@@ -12,9 +12,6 @@ export default class MemoryInfo extends Component {
         }
     }
     componentDidMount() {
-        //渲染数据
-        //this.props.ywGetCpu();
-        //请求数据
         this.getSystemRealtimeData();
     }
 
@@ -47,7 +44,7 @@ export default class MemoryInfo extends Component {
         // 静态数据
         let pieData = { diskList: [] };
 
-        for (let i = 0; i < parseInt(Math.random() * 10) + 1; i++) {
+        for (let i = 0; i < parseInt(Math.random() * 10) + 3; i++) {
             let num = Number.parseInt(Math.random() * 100);
             let obj = {
                 diskName: "磁盘" + i + "使用情况",
