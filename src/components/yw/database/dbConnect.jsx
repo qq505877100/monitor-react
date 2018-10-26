@@ -48,6 +48,7 @@ export default class DbConnect extends Component{
             }
         }
         console.log(searhData);
+        
         /*********************************************/
     
                         //请求数据
@@ -110,6 +111,8 @@ export default class DbConnect extends Component{
                     data: maxValue
                 }
             ]
+        },()=>{
+            console.log(this.state)
         });
 
     }
@@ -317,8 +320,8 @@ export default class DbConnect extends Component{
 
     render(){
         const buttonStyle={
-            display:this.state.isShowButton?'block':'none'
-            
+            display:this.state.isShowButton?'block':'none',
+            marginLeft: '-120px'
         }
         const dateStyle={
             display:this.state.isShowDate?'block':'none'
