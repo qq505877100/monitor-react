@@ -60,14 +60,14 @@ export default class DbConnect extends Component{
         let runningValue=[];
         let maxValue=[];
 
-        resultData.listConnected.forEach((v,i,arr)=>{
+        resultData().listConnected.forEach((v,i,arr)=>{
             YDate.push(v.date);
             connectedValue.push(v.count);
         });
-        resultData.listRunning.forEach((v,i,arr)=>{
+        resultData().listRunning.forEach((v,i,arr)=>{
             runningValue.push(v.count);
         });
-        resultData.listConnected.forEach((v,i,arr)=>{
+        resultData().listConnected.forEach((v,i,arr)=>{
             maxValue.push(v.count);
         });
 
@@ -288,7 +288,7 @@ export default class DbConnect extends Component{
         //成功回调
         let lineXData=[];
         let lineCount=[];
-        detailData.forEach((v,x,arr)=>{
+        detailData().forEach((v,x,arr)=>{
             lineXData.push(v.date);
             lineCount.push(v.count);
         });
@@ -355,43 +355,47 @@ export default class DbConnect extends Component{
 }
 
 //柱状图
-var resultData={
-    "listConnected":[//当前开放连接数
-        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
-    ],
-    "listRunning":[//当前正在运行连接数
-        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
-    ],
-    "listMax":[//数据库最大连接数
-        {"date":"2018-02-03","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-04","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-05","count":parseInt(Math.random()*100)},
-        {"date":"2018-02-06","count":parseInt(Math.random()*100)}
-    ]
+var resultData=function(){
+    return {
+        "listConnected":[//当前开放连接数
+            {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+        ],
+        "listRunning":[//当前正在运行连接数
+            {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+        ],
+        "listMax":[//数据库最大连接数
+            {"date":"2018-02-03","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-04","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-05","count":parseInt(Math.random()*100)},
+            {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+        ]
+    }
 }
 
 //折线图
-var detailData=[
-    {
-      "count": "2",
-      "date": "2018-08-08 09:31:50"
-    },
-    {
-      "count": "3",
-      "date": "2018-08-08 09:51:27"
-    },
-    {
-      "count": "2",
-      "date": "2018-08-08 09:59:31"
-    },
-    {
-      "count": "2",
-      "date": "2018-08-08 10:03:01"
-    }
-  ]
+var detailData=function(){
+    return [
+        {
+          "count": parseInt(Math.random()*10),
+          "date": "2018-08-08 09:31:50"
+        },
+        {
+          "count": parseInt(Math.random()*10),
+          "date": "2018-08-08 09:51:27"
+        },
+        {
+          "count": parseInt(Math.random()*10),
+          "date": "2018-08-08 09:59:31"
+        },
+        {
+          "count": parseInt(Math.random()*10),
+          "date": "2018-08-08 10:03:01"
+        }
+      ]
+}

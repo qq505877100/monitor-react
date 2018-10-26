@@ -58,24 +58,24 @@ export default class Throughput extends Component {
         let deleteValue = [];//删除量数据
         let updateValue = [];//更新量数据
 
-        result.listQus.forEach(function (value, index, array) {
+        result().listQus.forEach(function (value, index, array) {
             arr.push(value.date);
             qusValue.push(value.count);
         });
 
-        result.listSelect.forEach(function (value, index, array) {
+        result().listSelect.forEach(function (value, index, array) {
             selectValue.push(value.count);
         });
 
-        result.listInsert.forEach(function (value, index, array) {
+        result().listInsert.forEach(function (value, index, array) {
             insertValue.push(value.count);
         });
 
-        result.listDelete.forEach(function (value, index, array) {
+        result().listDelete.forEach(function (value, index, array) {
             deleteValue.push(value.count);
         });
 
-        result.listUpdate.forEach(function (value, index, array) {
+        result().listUpdate.forEach(function (value, index, array) {
             updateValue.push(value.count);
         });
 
@@ -153,7 +153,7 @@ export default class Throughput extends Component {
 
         let arr = [];//横坐标
         let count = [];//数据
-        dateilResult.forEach(function (value, index, array) {
+        dateilResult().forEach(function (value, index, array) {
             arr.push(value.date);
             count.push(value.count)
         });
@@ -333,104 +333,110 @@ export default class Throughput extends Component {
 
 
 //模拟后台返回参数
-var result = {//初始化数据
-    //吞吐量数据
-    "listQus": [
-        { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
-    ],
-    //数据库已经执行的查询数量
-    "listSelect": [
-        { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
-    ],
-    //数据库已经执行插入语句数量
-    "listInsert": [
-        { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
-    ],
-    //删除数量
-    "listDelete": [
-        { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
-    ],
-    //更新数量
-    "listUpdate": [
-        { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
-        { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
-    ]
+var result =  function(){
+    return  {//初始化数据
+        //吞吐量数据
+        "listQus": [
+            { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
+        ],
+        //数据库已经执行的查询数量
+        "listSelect": [
+            { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
+        ],
+        //数据库已经执行插入语句数量
+        "listInsert": [
+            { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
+        ],
+        //删除数量
+        "listDelete": [
+            { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
+        ],
+        //更新数量
+        "listUpdate": [
+            { "date": "2018-02-03", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-04", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-05", "count": parseInt(Math.random() * 100) },
+            { "date": "2018-02-06", "count": parseInt(Math.random() * 100) }
+        ]
+    }
 }
 
 
-var dateilResult = [//数据详情
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:56:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:56:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:57:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:57:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:58:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:58:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:59:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 08:59:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:00:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:00:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:01:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:01:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:02:06"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:02:36"
-    },
-    {
-        "count": parseInt(Math.random() * 100),
-        "date": "2018-08-01 09:03:06"
-    }
-]
+var dateilResult = function(){
+    return [//数据详情
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:56:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:56:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:57:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:57:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:58:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:58:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:59:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 08:59:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:00:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:00:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:01:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:01:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:02:06"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:02:36"
+        },
+        {
+            "count": parseInt(Math.random() * 100),
+            "date": "2018-08-01 09:03:06"
+        }
+    ]
+}
+
+    
