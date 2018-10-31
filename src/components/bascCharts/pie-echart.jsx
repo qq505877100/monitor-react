@@ -46,7 +46,7 @@ export default class PieChart extends Component {
                 itemStyle: {
                     color: (params) => {
                         if (params.dataIndex === 0) {
-                            return "#ffd85c"
+                            return "orange"
                         } else {
                             return "#37a2da";
                         }

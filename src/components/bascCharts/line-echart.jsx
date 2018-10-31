@@ -14,6 +14,7 @@ export default class LineChart extends Component {
      *  yAxis: [[],[]} y轴的数数数组
      *  yFormatter: "{value}" 是否对y轴的刻度格式化
      *  yName: 指定y轴的坐标名称
+     *  color: 折线图的颜色
      */
     getOption = () => {
         let series = [];
@@ -21,6 +22,7 @@ export default class LineChart extends Component {
             let item = {
                 name: this.props.legend[i],
                 type: Math.random() ? 'line' : "bar",
+                color : (this.props.color && this.props.color[i]) || "",
                 data: this.props.yAxis[i]
             }
             series.push(item);

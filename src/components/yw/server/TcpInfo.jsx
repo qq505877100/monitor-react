@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import LineChart from "../../../components/bascCharts/line-echart"
+import LineChart from "../../../components/bascCharts/line-echart";
+import ReactEcharts from 'echarts-for-react';
+
 import _x from "../../../js/_x/index";
 
 import "../../../css/yw/server/tcpInfo.css";
@@ -77,15 +79,109 @@ export default class TcpInfo extends Component {
         yAxis.push(tem);
         this.setState({xAxis,yAxis});
     }
+
+    getOption = () => {
+        let option = {
+            title: {
+                text: this.state.title,
+                left: "center",
+                top: 10,
+                textStyle: {
+                    color: "#fff",
+                    fontSize: 20
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+            },
+            legend: {
+                // orient: "vertical",
+                data:this.state.legend,
+                top: 16,
+                right: "25%",
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: this.state.xAxis,
+                boundaryGap: true,
+                axisLabel: {
+                    rotate: 45,
+                    textStyle: {
+                        color: 'white'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#FFFFFF',
+                    }
+                },
+                axisTick: {
+                    show: false
+                }
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                    name: "发送/接收包数量",
+                    axisLine: {
+                        lineStyle: {
+                            color: '#FFFFFF',
+                        }
+                    },
+                    axisLabel: {
+                        formatter: this.props.yFormatter || '{value}',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                }
+            ],
+            series: [
+                {
+                    name: this.state.legend[0],
+                    type: 'line',
+                    stack: "总量",
+                    color: "green",
+                    areaStyle: {color: "green",opacity: 0.6},
+                    data: this.state.yAxis[0]
+                },
+                {
+                    name: this.state.legend[1],
+                    type: 'line',
+                    stack: "总量",
+                    color: "orange",
+                    areaStyle: {color: "orange",opacity: 0.8},
+                    data: this.state.yAxis[1]
+                }
+            ]
+        };
+        return option;
+    }
+    // <ReactEcharts style={{ width: "80%", height: 600, margin: "0 auto" }} option={this.getOption()}></ReactEcharts>
     render() {
         return (
             <div className="tcp-info-content">
                 <div className="tcp-info-content-linechart">
                     {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
-                            <LineChart className="jvm-chart" style={{ width: "80%", height: 600, margin: "0 auto" }}
-                                title={this.state.title} legend={this.state.legend} xAxis={this.state.xAxis} yAxis={this.state.yAxis}
-                                yName="发送/接收包数量"/>
+                             <LineChart className="jvm-chart" style={{ width: "80%", height: 600, margin: "0 auto" }}
+                                    title={this.state.title} legend={this.state.legend} xAxis={this.state.xAxis} yAxis={this.state.yAxis}
+                                    yName="发送/接收包数量" color={["green","red"]}/>
                             : <div>暂无数据</div>
                     }
                 </div>
