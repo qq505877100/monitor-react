@@ -50,7 +50,7 @@ export default class Performance extends Component{
         let xData=[];//横坐标
         let barData=[];//柱状图纵坐标
         let lineDate=[]//折线图纵坐标
-        resultMap.forEach(function(value,index,array){
+        resultMap().forEach(function(value,index,array){
             xData.push(value.schema_name);
             barData.push(value.COUNT);
             lineDate.push(value.avg_microsec);
@@ -202,7 +202,7 @@ export default class Performance extends Component{
 
     render(){
         return(
-            <div>
+            <div style={{marginTop:'110px'}}>
                 <div className="choose-date">
                     <span className="date-span">日期选择：</span>
                     <DatePicker onChange={this.onChange} style={{float:'right'}}/>
@@ -214,60 +214,62 @@ export default class Performance extends Component{
 }
 
 //模拟后台返回数据
-var resultMap= [
+var resultMap= function(){
+    return [
         {
             "schema_name" : "jf_isedc_db_6281_20180621",//数据库名称//
-            "COUNT" : "5188",//已经执行sql数量//
-            "avg_microsec" : "2830"//平均每条sql执行耗时//
+            "COUNT" : parseInt(Math.random() * 10000),//已经执行sql数量//
+            "avg_microsec" : parseInt(Math.random() * 10000)//平均每条sql执行耗时//
         }, 
         {
             "schema_name": "jf_information_db_v1.01",
-            "COUNT": "9333",
-            "avg_microsec": "6002"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_cloud_db_888888",
-            "COUNT": "9643",
-            "avg_microsec": "2239"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_attence_db_v1.01",
-            "COUNT": "7845",
-            "avg_microsec": "3682"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_information_db_xh",
-            "COUNT": "3859",
-            "avg_microsec": "1179"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_cloud_db_865001200001",
-            "COUNT": "930",
-            "avg_microsec": "1298"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_isgct_v1.0",
-            "COUNT": "737",
-            "avg_microsec": "1008"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_cloud_db_v1.08_865001200001",
-            "COUNT": "1047",
-            "avg_microsec": "7803"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_information_xh",
-            "COUNT": "926",
-            "avg_microsec": "7352"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_isedc_db_411101500001",
-            "COUNT": "1665",
-            "avg_microsec": "6493"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         },
         {
             "schema_name": "jf_information_db_v1.1",
-            "COUNT": "3666",
-            "avg_microsec": "3621"
+            "COUNT": parseInt(Math.random() * 10000),
+            "avg_microsec": parseInt(Math.random() * 10000)
         }
       ]
+} 

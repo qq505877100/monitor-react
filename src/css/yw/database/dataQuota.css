@@ -1,0 +1,19 @@
+.ant-modal-content{
+    height: 735px;
+    background-color:#1E2531;
+    opacity: 0.8;
+}
+.range-picker{
+    display: block;
+    width: 370px;
+    height: 32px;
+    float: right;
+    margin-top: -35px;
+    margin-right: 40px;
+}
+.date-span{
+    float: left;
+    font-size: 15px;
+    text-align: center;
+    line-height:32px; 
+}

@@ -15,11 +15,14 @@ import Jvm from "../../components/yw/server/jvm";
 import MemoryInfo from "../../components/yw/server/memoryInfo";
 import FileSystem from "../../components/yw/server/fileSystem";
 import SystemRealtime from "../../components/yw/server/fileSystemRealtime";
-import TcpInfo from "../../components/yw/server/tcpInfo"
-import ThreadInfo from "../../components/yw/server/threadInfo"
+import TcpInfo from "../../components/yw/server/tcpInfo";
+import ThreadInfo from "../../components/yw/server/threadInfo";
 
-import Throughput from "../../components/yw/database/throughput"
-import Performance from "../../components/yw/database/performance"
+import Throughput from "../../components/yw/database/throughput";
+import Performance from "../../components/yw/database/performance";
+import DbConnect from "../../components/yw/database/dbConnect";
+import CachePool from "../../components/yw/database/cachePool"
+import DataQuota from "../../components/yw/database/dataQuota"
 
 
 //产品组件导入
@@ -71,7 +74,7 @@ export default class Index extends Component {
         //研发
         let yf = new Map([
             // ["api_monitor",<Api cey={key} selected={selected} result={result}/>]
-            ["api_monitor",<Performance/>]
+            ["api_monitor",<DataQuota/>]
         ]);
         //运维
         let yw = new Map([
@@ -86,9 +89,9 @@ export default class Index extends Component {
 
             ["Throughput",<Throughput/>],
             ["performance",<Performance/>],
-            ["connection",<h1>连接</h1>],
-            ["buffer_pool",<h1>缓冲池使用量</h1>],
-            ["Traffic_statistics",<h1>流量统计</h1>],
+            ["connection",<DbConnect/>],
+            ["buffer_pool",<CachePool/>],
+            ["Traffic_statistics",<DataQuota/>],
         ])
         //产品
         let cp = new Map([
