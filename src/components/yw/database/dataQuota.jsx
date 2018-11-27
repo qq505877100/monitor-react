@@ -400,6 +400,12 @@ export default class DataQuota extends Component{
                 <Modal
                     title={this.state.titleName}
                     visible={this.state.visible}
+                    bodyStyle={
+                      {
+                        height: '735px',
+                        backgroundColor:'#1E2531'
+                      }
+                    }
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                     footer={null}
