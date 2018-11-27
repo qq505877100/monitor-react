@@ -1,3 +1,7 @@
+.ant-modal-content{
+    height: auto;
+    background-color:#fff;
+}
 .fxh-product-container {
     background-color: #010d1d;
     margin: 0 5%;
