@@ -319,8 +319,13 @@ export default class Throughput extends Component {
             </Button>
                 <div style={{ width: '80%', height: '80%', margin: '20px auto' }}>
                     <ReactEcharts style={{ marginTop: '80px' }} option={this.getOption()} opts={{ height: 600 }}
-                        onEvents={{ "click": this.itemOnClick }} />
+                        onEvents={this.state.isShowDate?{ "click": this.itemOnClick }:{}} />
                 </div>
+                <div className="throughput-span" style={dateStyle}>
+                    <b>注：</b>
+                    <span>点击每个折线节点下穿至当天具体吞吐量情况</span>
+                </div>
+                
             </div>
         )
     }

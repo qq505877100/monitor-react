@@ -424,6 +424,11 @@ export default class DataQuota extends Component{
                      option={this.getBarOption()}
                      opts={{height:'740px'}}/>
                 </div>
+                <div className="dataQuota-span">
+                    <b>注：</b>
+                    <span>点击每个柱状图下穿至当天具体流量统计详情</span>
+                </div>
+                
             </div>
         )
     }
