@@ -72,7 +72,7 @@ export default class ThreadInfo extends Component {
                         (this.state.xAxis && this.state.xAxis.length > 0) ?
                             <LineChart className="jvm-chart" style={{ width: "80%", height: 600, margin: "0 auto" }}
                                 title={this.state.title} legend={this.state.legend} xAxis={this.state.xAxis} yAxis={this.state.yAxis}
-                                yFormatter="{value}%" yName="cpu/内存使用率"/>
+                                yFormatter="{value}%" yName="cpu/内存使用率" color={["rgba(0, 102, 255,0.8)","rgba(255, 0, 0,0.7)"]}/>
                             : <div>暂无数据</div>
                     }
                 </div>
