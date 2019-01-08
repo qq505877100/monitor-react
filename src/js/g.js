@@ -2,7 +2,7 @@
  * @Author: lxx 
  * @Date: 2018-08-27 22:14:20 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-10-24 16:23:07
+ * @Last Modified time: 2019-01-08 10:09:26
  */
 /**
  * 全局变量
@@ -18,14 +18,18 @@ const G = {
     baseinfo: {
 
     },
-    isdebug: true,
+    isdebug: false,
     loaded: false,
 }
 
+const debug = process.env.NODE_ENV === "development"
 /**
  * 获取基础数据(获取地址)
  */
 export function getBaseinfo() {
+    if (debug) {
+        G.isdebug = true;
+    }
     //解析出根地址(部署到服务器后，需要解析真实的后台地址)
     G.rootpath = window.location.href.substring(0, window.location.href.indexOf('/index'));
     if (G.rootpath) {
@@ -40,7 +44,7 @@ export function getBaseinfo() {
         G.baseinfo = {
             serviceroot: G.defaultServerUrl
         };
-        G.dataServices = G.dedefaultServerUrl;
+        G.dataServices = G.baseinfo.serviceroot;
     }
     console.log(G)
 }
