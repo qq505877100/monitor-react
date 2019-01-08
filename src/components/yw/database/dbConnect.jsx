@@ -333,7 +333,6 @@ export default class DbConnect extends Component{
                     <span className="date-span">日期：</span>
                     <RangePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
-                
                 <div style={{ width: '80%',height: '80%',margin: '60px auto'}}>
                     <Button className="button-style" type="dashed" style={buttonStyle} onClick={this.goBack}>
                         <Icon type="backward" />Go back
@@ -342,12 +341,16 @@ export default class DbConnect extends Component{
                         option={this.state.showOption ? this.getBarOption() : 
                                             this.getPieOption()}
 
-                        onEvents={{"click":this.itemOnClick}}
+                        onEvents={this.state.isShowDate?{"click":this.itemOnClick}:{}}
 
                         notMerge={true}
 
                         style={{height:'100%'}}/>
                                             
+                </div>
+                <div className="dbConnect-span" style={dateStyle}>
+                    <b>注：</b>
+                    <span>点击每个柱状图中的节点下穿至当天的连接详情</span>
                 </div>
             </div>                
         )

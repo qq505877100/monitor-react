@@ -1,8 +1,6 @@
 .ant-modal-content{
-    height: 735px;
-    background-color:#1E2531;
     opacity: 0.8;
-}
+} 
 .range-picker{
     display: block;
     width: 370px;
@@ -16,4 +14,9 @@
     font-size: 15px;
     text-align: center;
     line-height:32px; 
+}
+.dataQuota-span{
+    font-size: 20px;
+    color:grey;
+    margin-top: 420px;
 }
