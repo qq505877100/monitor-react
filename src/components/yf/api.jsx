@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import echarts from 'echarts/lib/echarts';
 import { bar, tooltip, title } from 'echarts';
-import { getNum } from '../../reducers/yf/yf.reducer'
+import { getNum } from '@/reducers/yf/yf.reducer'
 import { connect } from 'react-redux'
 import ReactEcharts from 'echarts-for-react';
 @connect(
