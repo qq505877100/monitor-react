@@ -3,7 +3,7 @@ import echarts from 'echarts/lib/echarts';
 import { DatePicker,Modal } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
-
+import _x from "../../../js/_x/util"
 import "../../../css/yw/database/dataQuota.css"
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -15,6 +15,7 @@ export default class DataQuota extends Component{
     constructor(props){
         super(props);
         this.state = {
+            showEchart:false,
             visible: false,
             barXData:[],
             barSeries:[],
@@ -24,7 +25,7 @@ export default class DataQuota extends Component{
         };
     }
 
-
+    
     componentDidMount(){
         this.getBarData();
     }
@@ -46,95 +47,102 @@ export default class DataQuota extends Component{
         }
         console.log(searchData);
         /*********************************************/
-    
-                        //请求数据
+        _x.request.request("api/back/monitor_mysql/network",searchData,(data)=>{
+            
+            console.log(data)
+            let resultData=data;
+           
+            let sentValue=[];
+            let receivedVlaue=[];
+            let XData=[];
+            resultData.listSent.forEach((v,i,arr)=>{
+                sentValue.push(v.count);
+                XData.push(v.date);
+            });
+            resultData.listReceived.forEach((v,i,arr)=>{
+                receivedVlaue.push(v.count);
+            })
+            this.setState({
+                barXData:XData,
+                barSeries:[
+                    {
+                        "name": "发送的流量",
+                        "type": "bar",
+                        "data": sentValue,
+                        "barWidth": "auto",
+                        "itemStyle": {
+                          "normal": {
+                            "color": {
+                              "type": "linear",
+                              "x": 0,
+                              "y": 0,
+                              "x2": 0,
+                              "y2": 1,
+                              "colorStops": [
+                                {
+                                  "offset": 0,
+                                  "color": "rgba(144, 238 ,144, 0.5)"
+                                },
+                                {
+                                  "offset": 0.5,
+                                  "color": "rgba(0,133,245,0.7)"
+                                },
+                                {
+                                  "offset": 1,
+                                  "color": "rgba(0,133,245,0.3)"
+                                }
+                              ],
+                              "globalCoord": false
+                            }
+                          }
+                        }
+                      },
+                    {
+                        "name": "接收的流量",
+                        "type": "bar",
+                        "data": receivedVlaue,
+                        "barWidth": "auto",
+                        "itemStyle": {
+                          "normal": {
+                            "color": {
+                              "type": "linear",
+                              "x": 0,
+                              "y": 0,
+                              "x2": 0,
+                              "y2": 1,
+                              "colorStops": [
+                                {
+                                  "offset": 0,
+                                  "color": "rgba(255,37,117,0.7)"
+                                },
+                                {
+                                  "offset": 0.5,
+                                  "color": "rgba(0,255,252,0.7)"
+                                },
+                                {
+                                  "offset": 1,
+                                  "color": "rgba(0,255,252,0.3)"
+                                }
+                              ],
+                              "globalCoord": false
+                            }
+                          }
+                        },
+                        "barGap": "0"
+                      }
+                ],
+                showEchart:true
+            },()=>{
+                console.log(this.state);
+            });
+        },(e)=>{
+            alert("服务器异常")
+            console.error(e);
+        })
 
         /**********************************************/
         //成功回调
-        let resultData=resultBarMap();
-
-        let sentValue=[];
-        let receivedVlaue=[];
-        let XData=[];
-        resultData.listSent.forEach((v,i,arr)=>{
-            sentValue.push(v.count);
-            XData.push(v.date);
-        });
-        resultData.listReceived.forEach((v,i,arr)=>{
-            receivedVlaue.push(v.count);
-        })
-        this.setState({
-            barXData:XData,
-            barSeries:[
-                {
-                    "name": "发送的流量",
-                    "type": "bar",
-                    "data": sentValue,
-                    "barWidth": "auto",
-                    "itemStyle": {
-                      "normal": {
-                        "color": {
-                          "type": "linear",
-                          "x": 0,
-                          "y": 0,
-                          "x2": 0,
-                          "y2": 1,
-                          "colorStops": [
-                            {
-                              "offset": 0,
-                              "color": "rgba(144, 238 ,144, 0.5)"
-                            },
-                            {
-                              "offset": 0.5,
-                              "color": "rgba(0,133,245,0.7)"
-                            },
-                            {
-                              "offset": 1,
-                              "color": "rgba(0,133,245,0.3)"
-                            }
-                          ],
-                          "globalCoord": false
-                        }
-                      }
-                    }
-                  },
-                {
-                    "name": "接收的流量",
-                    "type": "bar",
-                    "data": receivedVlaue,
-                    "barWidth": "auto",
-                    "itemStyle": {
-                      "normal": {
-                        "color": {
-                          "type": "linear",
-                          "x": 0,
-                          "y": 0,
-                          "x2": 0,
-                          "y2": 1,
-                          "colorStops": [
-                            {
-                              "offset": 0,
-                              "color": "rgba(255,37,117,0.7)"
-                            },
-                            {
-                              "offset": 0.5,
-                              "color": "rgba(0,255,252,0.7)"
-                            },
-                            {
-                              "offset": 1,
-                              "color": "rgba(0,255,252,0.3)"
-                            }
-                          ],
-                          "globalCoord": false
-                        }
-                      }
-                    },
-                    "barGap": "0"
-                  }
-            ]
-        },()=>{
-            console.log(this.state);
-        });
+        // let resultData=resultBarMap();
     }
 
 
@@ -250,61 +258,68 @@ export default class DataQuota extends Component{
         }
         console.log(searchParam)
         /*********************************************/
+        _x.request.request("api/back/monitor_mysql/network_detail",searchParam,(resp)=>{
+            let resultdataLine=resp.list;
+            
+            let XData=[];
+            let value=[];
+            resultdataLine.forEach((v,i,arr)=>{
+                XData.push(v.date);
+                value.push(v.count);
+            });
     
-                        //请求数据
+            this.setState({
+                visible: true,
+                lineXData:XData,
+                titleName:param.seriesName,
+                lineSeries:[
+                    {
+                        name:param.seriesName,
+                        type:'line',
+                        stack: '总量',
+                        data:value,
+                        // lineStyle:{
+                        //     color:param.color
+                        // },
+                        // areaStyle: {
+                        //     opacity:0.3,
+                        //     color:param.color
+                        // },
+                        smooth: true,
+                        areaStyle: {
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgba(82, 191, 255, 0.3)'
+                                }, {
+                                    offset: 0.8,
+                                    color: 'rgba(82, 191, 255, 0)'
+                                }], false),
+                                shadowColor: 'rgba(228, 139, 76, 0.1)',
+                                shadowBlur: 10
+                            }
+                        },
+                        symbolSize:4,  
+                        itemStyle: {
+                            normal: {
+                                color: 'rgb(82, 191, 255)',
+                                borderColor:'#e48b4c'
+                            },
+                        },
+                    }
+                ]
+            })
+        },(e)=>{
+            console.error(e);
+            alert("服务器异常");
+            this.setState({
+                visible: false,
+            });
+        })
 
         /**********************************************/
         //成功回调
-        let resultdataLine=reultLineMap();
-
-        let XData=[];
-        let value=[];
-        resultdataLine.forEach((v,i,arr)=>{
-            XData.push(v.date);
-            value.push(v.count);
-        });
-
-        this.setState({
-            visible: true,
-            lineXData:XData,
-            titleName:param.seriesName,
-            lineSeries:[
-                {
-                    name:param.seriesName,
-                    type:'line',
-                    stack: '总量',
-                    data:value,
-                    // lineStyle:{
-                    //     color:param.color
-                    // },
-                    // areaStyle: {
-                    //     opacity:0.3,
-                    //     color:param.color
-                    // },
-                    smooth: true,
-                    areaStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(82, 191, 255, 0.3)'
-                            }, {
-                                offset: 0.8,
-                                color: 'rgba(82, 191, 255, 0)'
-                            }], false),
-                            shadowColor: 'rgba(228, 139, 76, 0.1)',
-                            shadowBlur: 10
-                        }
-                    },
-                    symbolSize:4,  
-                    itemStyle: {
-                        normal: {
-                            color: 'rgb(82, 191, 255)',
-                            borderColor:'#e48b4c'
-                        },
-                    },
-                }
-            ]
-        })
+        // let resultdataLine=reultLineMap();
     }
 
 
@@ -419,10 +434,13 @@ export default class DataQuota extends Component{
                     <span className="date-span">日期：</span>
                     <RangePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
-                <div style={{ width: '80%',height: '80%',margin: '60px auto'}}>
+                <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.showEchart?"block":"none"}}>
                     <ReactEcharts onEvents={{"click":this.itemOnClick}}
                      option={this.getBarOption()}
                      opts={{height:'740px'}}/>
+                </div>
+                <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.showEchart?"none":"block"}}>
+                    <span>暂无数据</span>
                 </div>
                 <div className="dataQuota-span">
                     <b>注：</b>

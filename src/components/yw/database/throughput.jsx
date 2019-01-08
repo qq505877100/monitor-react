@@ -3,6 +3,7 @@ import echarts from 'echarts/lib/echarts';
 import { DatePicker, Icon, Button } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 // import {DATEX} from "../../../js/_x/util/date"
+import _x from "../../../js/_x/util"
 import moment from 'moment';
 
 import "../../../css/yw/database/throughput.css"
@@ -20,7 +21,8 @@ export default class Throughput extends Component {
             xData: [],
             series: [],
             isShowButton: false,
-            isShowDate: true
+            isShowDate: true,
+            showEcheart:false
         };
     }
 
@@ -46,91 +48,95 @@ export default class Throughput extends Component {
         }
         console.log(searDate);
         /*********************************************/
-
-        //请求数据
+        _x.request.request("api/back/monitor_mysql/questions",searDate,(resp)=>{
+            let data=resp;
+            let arr = [];//设置横坐标
+            let qusValue = [];//吞吐量数据数据
+            let selectValue = [];//查询量数据
+            let insertValue = [];//插入量数据
+            let deleteValue = [];//删除量数据
+            let updateValue = [];//更新量数据
+    
+            data.listQus.forEach(function (value, index, array) {
+                arr.push(value.date);
+                qusValue.push(value.count);
+            });
+    
+            data.listSelect.forEach(function (value, index, array) {
+                selectValue.push(value.count);
+            });
+    
+            data.listInsert.forEach(function (value, index, array) {
+                insertValue.push(value.count);
+            });
+    
+            data.listDelete.forEach(function (value, index, array) {
+                deleteValue.push(value.count);
+            });
+    
+            data.listUpdate.forEach(function (value, index, array) {
+                updateValue.push(value.count);
+            });
+            this.setState({
+                showEcheart:true,
+                xData: arr,
+                data: ['吞吐量数据', '查询数量', '插入语句数量', '删除数量', '更新数量'],
+                series: [
+                    {
+                        name: '吞吐量数据',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {
+                            opacity: 0.2
+                        },
+                        data: qusValue
+                    },
+                    {
+                        name: '查询数量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {
+                            opacity: 0.2
+                        },
+                        data: selectValue
+                    },
+                    {
+                        name: '插入语句数量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {
+                            opacity: 0.2
+                        },
+                        data: insertValue
+                    },
+                    {
+                        name: '删除数量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {
+                            opacity: 0.2
+                        },
+                        data: deleteValue
+                    },
+                    {
+                        name: '更新数量',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {
+                            opacity: 0.2
+                        },
+                        data: updateValue
+                    }
+                ]
+            })
+        },(e) =>{
+            console.error(e);
+            alert("服务器异常")
+        })
 
         /**********************************************/
 
-        let arr = [];//设置横坐标
-        let qusValue = [];//吞吐量数据数据
-        let selectValue = [];//查询量数据
-        let insertValue = [];//插入量数据
-        let deleteValue = [];//删除量数据
-        let updateValue = [];//更新量数据
-
-        result().listQus.forEach(function (value, index, array) {
-            arr.push(value.date);
-            qusValue.push(value.count);
-        });
-
-        result().listSelect.forEach(function (value, index, array) {
-            selectValue.push(value.count);
-        });
-
-        result().listInsert.forEach(function (value, index, array) {
-            insertValue.push(value.count);
-        });
-
-        result().listDelete.forEach(function (value, index, array) {
-            deleteValue.push(value.count);
-        });
-
-        result().listUpdate.forEach(function (value, index, array) {
-            updateValue.push(value.count);
-        });
-
-
-        this.setState({
-            xData: arr,
-            data: ['吞吐量数据', '查询数量', '插入语句数量', '删除数量', '更新数量'],
-            series: [
-                {
-                    name: '吞吐量数据',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: qusValue
-                },
-                {
-                    name: '查询数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: selectValue
-                },
-                {
-                    name: '插入语句数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: insertValue
-                },
-                {
-                    name: '删除数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: deleteValue
-                },
-                {
-                    name: '更新数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: updateValue
-                }
-            ]
-        })
+       
     }
 
 
@@ -317,11 +323,12 @@ export default class Throughput extends Component {
                 <Button className="button-style" type="dashed" style={buttonStyle} onClick={this.goBack}>
                     <Icon type="backward" />Go back
             </Button>
-                <div style={{ width: '80%', height: '80%', margin: '20px auto' }}>
-                    <ReactEcharts style={{ marginTop: '80px' }} option={this.getOption()} opts={{ height: 600 }}
+                <div style={{ width: '80%', height: '80%', margin: '55px auto'}}>
+                    <ReactEcharts style={{ marginTop: '80px',display:this.showEcheart?'block':'none'}} option={this.getOption()} opts={{ height: 600 }}
                         onEvents={this.state.isShowDate?{ "click": this.itemOnClick }:{}} />
+                         <span style={{display:this.showEcheart?'none':'block'}}>暂无数据</span>
                 </div>
-                <div className="throughput-span" style={dateStyle}>
+                <div className="throughput-span" style={dateStyle}>     
                     <b>注：</b>
                     <span>点击每个折线节点下穿至当天具体吞吐量情况</span>
                 </div>
