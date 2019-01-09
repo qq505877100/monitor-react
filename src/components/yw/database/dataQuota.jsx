@@ -11,6 +11,9 @@ const TIME_VALUE={
     startTime: moment(new Date()),
     endTime: moment(new Date()).add(-7, "days"),
 }
+/**
+ * 运维->流量统计
+ */
 export default class DataQuota extends Component{
     constructor(props){
         super(props);
@@ -48,93 +51,93 @@ export default class DataQuota extends Component{
         console.log(searchData);
         /*********************************************/
         _x.request.request("api/back/monitor_mysql/network",searchData,(data)=>{
-            
-            console.log(data)
-            let resultData=data;
-           
+            let resultData=data.data;
             let sentValue=[];
             let receivedVlaue=[];
             let XData=[];
-            resultData.listSent.forEach((v,i,arr)=>{
-                sentValue.push(v.count);
-                XData.push(v.date);
-            });
-            resultData.listReceived.forEach((v,i,arr)=>{
-                receivedVlaue.push(v.count);
-            })
-            this.setState({
-                barXData:XData,
-                barSeries:[
-                    {
-                        "name": "发送的流量",
-                        "type": "bar",
-                        "data": sentValue,
-                        "barWidth": "auto",
-                        "itemStyle": {
-                          "normal": {
-                            "color": {
-                              "type": "linear",
-                              "x": 0,
-                              "y": 0,
-                              "x2": 0,
-                              "y2": 1,
-                              "colorStops": [
-                                {
-                                  "offset": 0,
-                                  "color": "rgba(144, 238 ,144, 0.5)"
-                                },
-                                {
-                                  "offset": 0.5,
-                                  "color": "rgba(0,133,245,0.7)"
-                                },
-                                {
-                                  "offset": 1,
-                                  "color": "rgba(0,133,245,0.3)"
+            if(data.result &&  resultData){
+                resultData.listSent.forEach((v,i,arr)=>{
+                    sentValue.push(v.count);
+                    XData.push(v.date);
+                });
+                resultData.listReceived.forEach((v,i,arr)=>{
+                    receivedVlaue.push(v.count);
+                })
+                this.setState({
+                    barXData:XData,
+                    barSeries:[
+                        {
+                            "name": "发送的流量",
+                            "type": "bar",
+                            "data": sentValue,
+                            "barWidth": "auto",
+                            "itemStyle": {
+                              "normal": {
+                                "color": {
+                                  "type": "linear",
+                                  "x": 0,
+                                  "y": 0,
+                                  "x2": 0,
+                                  "y2": 1,
+                                  "colorStops": [
+                                    {
+                                      "offset": 0,
+                                      "color": "rgba(144, 238 ,144, 0.5)"
+                                    },
+                                    {
+                                      "offset": 0.5,
+                                      "color": "rgba(0,133,245,0.7)"
+                                    },
+                                    {
+                                      "offset": 1,
+                                      "color": "rgba(0,133,245,0.3)"
+                                    }
+                                  ],
+                                  "globalCoord": false
                                 }
-                              ],
-                              "globalCoord": false
+                              }
                             }
-                          }
-                        }
-                      },
-                    {
-                        "name": "接收的流量",
-                        "type": "bar",
-                        "data": receivedVlaue,
-                        "barWidth": "auto",
-                        "itemStyle": {
-                          "normal": {
-                            "color": {
-                              "type": "linear",
-                              "x": 0,
-                              "y": 0,
-                              "x2": 0,
-                              "y2": 1,
-                              "colorStops": [
-                                {
-                                  "offset": 0,
-                                  "color": "rgba(255,37,117,0.7)"
-                                },
-                                {
-                                  "offset": 0.5,
-                                  "color": "rgba(0,255,252,0.7)"
-                                },
-                                {
-                                  "offset": 1,
-                                  "color": "rgba(0,255,252,0.3)"
+                          },
+                        {
+                            "name": "接收的流量",
+                            "type": "bar",
+                            "data": receivedVlaue,
+                            "barWidth": "auto",
+                            "itemStyle": {
+                              "normal": {
+                                "color": {
+                                  "type": "linear",
+                                  "x": 0,
+                                  "y": 0,
+                                  "x2": 0,
+                                  "y2": 1,
+                                  "colorStops": [
+                                    {
+                                      "offset": 0,
+                                      "color": "rgba(255,37,117,0.7)"
+                                    },
+                                    {
+                                      "offset": 0.5,
+                                      "color": "rgba(0,255,252,0.7)"
+                                    },
+                                    {
+                                      "offset": 1,
+                                      "color": "rgba(0,255,252,0.3)"
+                                    }
+                                  ],
+                                  "globalCoord": false
                                 }
-                              ],
-                              "globalCoord": false
-                            }
+                              }
+                            },
+                            "barGap": "0"
                           }
-                        },
-                        "barGap": "0"
-                      }
-                ],
-                showEchart:true
-            },()=>{
-                console.log(this.state);
-            });
+                    ],
+                    showEchart:true
+                },()=>{
+                    console.log(this.state);
+                });
+            }
+           
         },(e)=>{
             alert("服务器异常")
             console.error(e);
@@ -437,7 +440,7 @@ export default class DataQuota extends Component{
                 <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.showEchart?"block":"none"}}>
                     <ReactEcharts onEvents={{"click":this.itemOnClick}}
                      option={this.getBarOption()}
-                     opts={{height:'740px'}}/>
+                     opts={{height:740}}/>
                 </div>
                 <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.showEchart?"none":"block"}}>
                     <span>暂无数据</span>

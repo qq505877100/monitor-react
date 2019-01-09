@@ -46,23 +46,25 @@ export default class CachePool extends Component{
          /******************************************/
         _x.request.request("api/back/monitor_mysql/bufferpool",searchParam,(resp)=>{
             let data = resp.data;
-            //请求成功的回调
-            let  topXData=[];
-            let bottomXData=[];
-            let topValue=[];
-            let bottomValue=[]
-            data.listUseRate.forEach((v,i,arr)=>{
-                topXData.push(v.date);
-                topValue.push(v.count);
-            });
-            data.listUseRate.forEach((v,i,arr)=>{
-                bottomXData.push(v.date);
-                bottomValue.push(v.count);
-            });
-            this.setState({
-                topXData,bottomXData,topValue,bottomValue,
-                showEchart:true
-            });
+            if(resp.result && data){
+                //请求成功的回调
+                let  topXData=[];
+                let bottomXData=[];
+                let topValue=[];
+                let bottomValue=[]
+                data.listUseRate.forEach((v,i,arr)=>{
+                    topXData.push(v.date);
+                    topValue.push(v.count);
+                });
+                data.listUseRate.forEach((v,i,arr)=>{
+                    bottomXData.push(v.date);
+                    bottomValue.push(v.count);
+                });
+                this.setState({
+                    topXData,bottomXData,topValue,bottomValue,
+                    showEchart:true
+                });
+            }
         },(e)=>{
             console.error(e);
             alert("服务器异常");

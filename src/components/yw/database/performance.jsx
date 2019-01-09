@@ -48,15 +48,17 @@ export default class Performance extends Component{
             let xData=[];//横坐标
             let barData=[];//柱状图纵坐标
             let lineDate=[]//折线图纵坐标
-            result.forEach(function(value,index,array){
-                xData.push(value.schema_name);
-                barData.push(value.COUNT);
-                lineDate.push(value.avg_microsec);
-            });
-            this.setState({
-                xData,barData,lineDate,
-                showEchart:true
-            });
+            if(resp.result && result){
+                result.forEach(function(value,index,array){
+                    xData.push(value.schema_name);
+                    barData.push(value.COUNT);
+                    lineDate.push(value.avg_microsec);
+                });
+                this.setState({
+                    xData,barData,lineDate,
+                    showEchart:true
+                });
+            }
         },(e)=>{
             console.error(e);
             alert("服务器异常");
@@ -210,9 +212,9 @@ export default class Performance extends Component{
                     <span className="date-span">日期选择：</span>
                     <DatePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
-                <ReactEcharts option={this.getOption()} opts={{height:'740px'}} 
-                style={{marginTop:'80px',display:this.showEchart?'block':"none"}}/>
-                <span style={{marginTop:'80px',display:this.showEchart?'none':"block"}}>暂无数据</span>
+                <ReactEcharts option={this.getOption()} opts={{height:740}} 
+                style={{marginTop:'80px',display:this.state.showEchart?'block':"none"}}/>
+                <span style={{marginTop:'80px',display:this.state.showEchart?'none':"block"}}>暂无数据</span>
             </div>
         )
     }

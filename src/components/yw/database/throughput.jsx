@@ -46,10 +46,8 @@ export default class Throughput extends Component {
                 endTime: dateString
             }
         }
-        console.log(searDate);
-        /*********************************************/
         _x.request.request("api/back/monitor_mysql/questions",searDate,(resp)=>{
-            let data=resp;
+            let data=resp.data;
             let arr = [];//设置横坐标
             let qusValue = [];//吞吐量数据数据
             let selectValue = [];//查询量数据
@@ -313,8 +311,18 @@ export default class Throughput extends Component {
             display: this.state.isShowDate ? 'block' : 'none'
         }
 
+        const echartshow = {
+            marginTop: '80px',
+            display:this.state.showEcheart?"block":"none"
+        } 
+        
+        const spanShow = {
+            marginTop: '80px',
+            display:this.state.showEcheart?"none":"block"
+        }
 
         return (
+            
             <div className="throughput-content">
                 <div style={dateStyle} className="range-picker">
                     <span className="date-span">日期：</span>
@@ -324,9 +332,9 @@ export default class Throughput extends Component {
                     <Icon type="backward" />Go back
             </Button>
                 <div style={{ width: '80%', height: '80%', margin: '55px auto'}}>
-                    <ReactEcharts style={{ marginTop: '80px',display:this.showEcheart?'block':'none'}} option={this.getOption()} opts={{ height: 600 }}
+                    <ReactEcharts style={echartshow} option={this.getOption()} opts={{ height: 600 }}
                         onEvents={this.state.isShowDate?{ "click": this.itemOnClick }:{}} />
-                         <span style={{display:this.showEcheart?'none':'block'}}>暂无数据</span>
+                         <span style={spanShow}>暂无数据</span>
                 </div>
                 <div className="throughput-span" style={dateStyle}>     
                     <b>注：</b>

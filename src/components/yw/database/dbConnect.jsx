@@ -55,66 +55,64 @@ export default class DbConnect extends Component{
         _x.request.request("api/back/monitor_mysql/connections",searhData,(resp)=>{
             let data = resp.data;
              //成功回调
-        let YDate=[];
-        let connectedValue=[];
-        let runningValue=[];
-        let maxValue=[];
-
-        data.listConnected.forEach((v,i,arr)=>{
-            YDate.push(v.date);
-            connectedValue.push(v.count);
-        });
-        data.listRunning.forEach((v,i,arr)=>{
-            runningValue.push(v.count);
-        });
-        data.listConnected.forEach((v,i,arr)=>{
-            maxValue.push(v.count);
-        }); 
-
-        this.setState({
-            showEchart:true,
-            barYData:YDate,
-            barSeries:[
-                {
-                    name: '开放连接数',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'insideRight'
+            let YDate=[];
+            let connectedValue=[];
+            let runningValue=[];
+            let maxValue=[];
+            if(resp.result && data){
+                data.listConnected.forEach((v,i,arr)=>{
+                    YDate.push(v.date);
+                    connectedValue.push(v.count);
+                });
+                data.listRunning.forEach((v,i,arr)=>{
+                    runningValue.push(v.count);
+                });
+                data.listConnected.forEach((v,i,arr)=>{
+                    maxValue.push(v.count);
+                }); 
+                this.setState({
+                    showEchart:true,
+                    barYData:YDate,
+                    barSeries:[
+                        {
+                            name: '开放连接数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: connectedValue
+                        },
+                        {
+                            name: '正在运行连接数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: runningValue
+                        },
+                        {
+                            name: '最大连接数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: maxValue
                         }
-                    },
-                    data: connectedValue
-                },
-                {
-                    name: '正在运行连接数',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: runningValue
-                },
-                {
-                    name: '最大连接数',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: maxValue
-                }
-            ]
-        },()=>{
-            console.log(this.state)
-        });
+                    ]
+                });
+            }
         },(e)=>{
             console.error(e);
             alert("服务器异常");
@@ -290,19 +288,21 @@ export default class DbConnect extends Component{
             //成功回调
             let lineXData=[];
             let lineCount=[];
-            data.forEach((v,x,arr)=>{
-                lineXData.push(v.date);
-                lineCount.push(v.count);
-            });
-            this.setState({
-                showOption:false,
-                isShowDate:false,
-                isShowButton:true,
-                lineXData:lineXData,
-                lineCount:lineCount,
-                lineColor:param.color,
-                lineName:param.seriesName
-            })
+            if(resp.result && data){
+                data.forEach((v,x,arr)=>{
+                    lineXData.push(v.date);
+                    lineCount.push(v.count);
+                });
+                this.setState({
+                    showOption:false,
+                    isShowDate:false,
+                    isShowButton:true,
+                    lineXData:lineXData,
+                    lineCount:lineCount,
+                    lineColor:param.color,
+                    lineName:param.seriesName
+                })
+            }
         },(e)=>{
             console.error(e);
             alert("服务器异常");
