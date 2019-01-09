@@ -40,7 +40,7 @@ const request = function (method, params, success, fail) {
 		const ajaxObj = axiosIns.post(`/${method}`, `${JSON.stringify(postData)}`, config);
 		ajaxObj.then(function (response) {
 			if (typeof success === 'function') {
-				success(response);
+				success(response.data);
 			}
 		})
 

@@ -26,15 +26,13 @@ export default class Cpu extends Component {
     }
 
     getCpuData = () => {
-        _x.util.request.request("api/back/monitor_server/cpu",{},(res) => {
-            let data = res.data;
+        _x.util.request.request("api/back/monitor_server/cpu",{},(data) => {
             if (data.result) {
                 if (data.data && data.length > 0) {
                     //封装数据
                     this.setState({data: data.data})
                 }
             }
-            console.log(res)
         }).catch((error) => {
             //错误处理
             console.log(error);

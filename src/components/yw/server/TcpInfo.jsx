@@ -29,7 +29,6 @@ export default class TcpInfo extends Component {
     //获取jvm内存信息
     getCupInfoData = () => {
         Request.request("api/web/back/monitor_server/tcp", {}, (res) => {
-            console.log(res);
             if (res.result) {
                 this.setState({
                     jvmTotal: res.data.jvmTotal,

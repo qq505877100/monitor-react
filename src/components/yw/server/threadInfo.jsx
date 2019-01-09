@@ -27,7 +27,6 @@ export default class ThreadInfo extends Component {
     //获取jvm内存信息
     getThreadInfoData = () => {
         Request.request("api/web/back/monitor_server/thread", {}, (res) => {
-            console.log(res);
             if (res.result) {
                 this.setState({
                     jvmTotal: res.data.jvmTotal,
