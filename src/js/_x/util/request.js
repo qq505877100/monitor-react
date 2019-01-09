@@ -1,8 +1,4 @@
 /*
- * @Author: Summer
- * @Date: 2017-08-01 17:16:07
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-10-22 14:46:38
  * 数据服务请求方法
  */
 import axios from 'axios';
@@ -44,10 +40,8 @@ const request = function (method, params, success, fail) {
 		const ajaxObj = axiosIns.post(`/${method}`, `${JSON.stringify(postData)}`, config);
 		ajaxObj.then(function (response) {
 			if (typeof success === 'function') {
-				success(response);
+				success(response.data);
 			}
-		}).catch(() => {
-
 		})
 
 		if ((typeof fail) === 'function') {

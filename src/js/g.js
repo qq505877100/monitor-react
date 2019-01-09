@@ -2,13 +2,13 @@
  * @Author: lxx 
  * @Date: 2018-08-27 22:14:20 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-01-08 10:09:26
+ * @Last Modified time: 2019-01-09 11:13:19
  */
 /**
  * 全局变量
  */
 const G = {
-    defaultServerUrl: "http://localhost:8090/cloud",
+    defaultServerUrl: "http://10.10.1.62:8989/cloud/",
     title: "课堂生态",
     dataServices: "",
     rootPath: '',
@@ -23,6 +23,7 @@ const G = {
 }
 
 const debug = process.env.NODE_ENV === "development"
+console.log(debug)
 /**
  * 获取基础数据(获取地址)
  */

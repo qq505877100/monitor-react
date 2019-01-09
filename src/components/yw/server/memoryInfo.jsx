@@ -29,8 +29,7 @@ export default class MemoryInfo extends Component {
         //        "swapTotal" : 8157284,
         //        "swapUsed" : 4853316
         //    }
-        _x.util.request.request("api/back/monitor_server/mem",{},(res) => {
-            let data = res.data;
+        _x.util.request.request("api/back/monitor_server/mem",{},(data) => {
             if (data.result) {
                 if (data.data && data.length > 0) {
                     //封装数据
@@ -45,7 +44,6 @@ export default class MemoryInfo extends Component {
                     this.setState({data: dataPie})
                 }
             }
-            console.log(res);
         }).catch((error) => {
             //错误处理
             console.log(error);
