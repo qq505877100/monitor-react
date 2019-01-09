@@ -28,7 +28,6 @@ const request = function (method, params, success, fail) {
 	}
 	if (method) {
 		var postData = {
-			version: opts.version,
 			data: params || {},
 		};
 		const config = {

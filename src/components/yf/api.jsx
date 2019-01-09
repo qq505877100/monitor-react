@@ -93,7 +93,7 @@ export default class Api extends Component {
 
     //侧边栏点击修改props渲染数据
     componentWillReceiveProps(props) {
-        console.log("componentWillReceiveProps", props)
+        // console.log("componentWillReceiveProps", props)
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('api'), 'dark');
         // 绘制图表

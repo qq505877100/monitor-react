@@ -2,7 +2,7 @@
  * @Author: lxx 
  * @Date: 2018-08-27 22:14:20 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-01-09 11:13:19
+ * @Last Modified time: 2019-01-09 15:37:55
  */
 /**
  * 全局变量
@@ -23,7 +23,7 @@ const G = {
 }
 
 const debug = process.env.NODE_ENV === "development"
-console.log(debug)
+// console.log(debug)
 /**
  * 获取基础数据(获取地址)
  */
@@ -47,7 +47,6 @@ export function getBaseinfo() {
         };
         G.dataServices = G.baseinfo.serviceroot;
     }
-    console.log(G)
 }
 
 if (window) {

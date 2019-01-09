@@ -218,58 +218,58 @@ var resultMap= function(){
     return [
         {
             "schema_name" : "jf_isedc_db_6281_20180621",//数据库名称//
-            "COUNT" : parseInt(Math.random() * 10000),//已经执行sql数量//
-            "avg_microsec" : parseInt(Math.random() * 10000)//平均每条sql执行耗时//
+            "COUNT" : Number.parseInt(Math.random() * 10000, 10),//已经执行sql数量//
+            "avg_microsec" : parseInt(Math.random() * 10000, 10)//平均每条sql执行耗时//
         }, 
         {
             "schema_name": "jf_information_db_v1.01",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_cloud_db_888888",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_attence_db_v1.01",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_information_db_xh",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_cloud_db_865001200001",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_isgct_v1.0",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_cloud_db_v1.08_865001200001",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_information_xh",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_isedc_db_411101500001",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         },
         {
             "schema_name": "jf_information_db_v1.1",
-            "COUNT": parseInt(Math.random() * 10000),
-            "avg_microsec": parseInt(Math.random() * 10000)
+            "COUNT": parseInt(Math.random() * 10000, 10),
+            "avg_microsec": parseInt(Math.random() * 10000, 10)
         }
       ]
 } 

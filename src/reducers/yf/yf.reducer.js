@@ -19,7 +19,7 @@ export function getNum() {
     return (dispatch,getState) => {
         //调用的时候不能加/ym/dasd前面的那个"/"
         _x.util.request.request("yf/api",{},function (response) {
-            console.log(`yf-response`, response.data)
+            // console.log(`yf-response`, response.data)
             dispatch({
                 type: INTERFACE_DATA_GET,
                 payload:{
@@ -27,7 +27,6 @@ export function getNum() {
                 }
             })
         },function (error) {
-            console.log('yf-error----------' + error);
         })
     }
 }
