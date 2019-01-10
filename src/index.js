@@ -26,6 +26,8 @@ import {
 } from 'react-router-dom';
 
 import "./css/base.css"
+/* 引入图标库 */
+import "./css/icon/iconfont.css"
 
 //store设置
 const store = createStore(reducers,

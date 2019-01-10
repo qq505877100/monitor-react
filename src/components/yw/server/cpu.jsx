@@ -5,6 +5,9 @@ import "../../../css/yw/server/cpu.css";
 
 import { ywGetCpu } from '../../../reducers/yw/yw.reducer';
 import { connect } from 'react-redux';
+import CommonNoData from '../../common/commonNoData';
+import ChartNoData from '../../common/chartNoData';
+
 @connect(
     state => state.ywReducer,//要哪些状态
     { ywGetCpu }//需要什么动作
@@ -52,6 +55,15 @@ export default class Cpu extends Component {
         
         return (
             <div className="cpu-content">
+                {/* <i className="iconfont icon-wushuju1"></i> */}
+                {/* <ChartNoData></ChartNoData> */}
+                <div>
+
+                <CommonNoData/>
+                <div style={{width: 300,height: 200}}>
+                    <ChartNoData></ChartNoData>
+                </div>
+                </div>
                 <div className="cpu-title">
                     <h1>cpu使用情况</h1>
                 </div>

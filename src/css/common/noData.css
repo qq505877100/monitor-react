@@ -1,0 +1,12 @@
+.fxh-wrapper {
+}
+.fxh-wrapper .fxh-no-data-icon {
+    font-size: 150px;
+    display: block;
+}
+.fxh-wrapper .fxh-no-data-info {
+    display: block;
+    font-size: 16px;
+    color: #ddd;
+    margin-top: -40px;
+}   

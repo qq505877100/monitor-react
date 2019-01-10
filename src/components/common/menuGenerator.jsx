@@ -1,11 +1,9 @@
 import { Menu, Icon } from 'antd';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 // 使用方式： <MenuGenerator menus={menus} defaultOpenKeys={["api_monitor"]} defaultSelectedKeys={["api_monitor"]}/>
 //menus：表示要渲染菜单的数据项，defaultOpenKeys：默认要展开的keys，defaultSelectedKeys：默认选择的keys
 const SubMenu = Menu.SubMenu;
 export default class MenuGenerator extends Component{
-
     render() {
         //let key=this.props.key + "/";
         let menus = this.props.menus;
