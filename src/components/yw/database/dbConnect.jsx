@@ -366,22 +366,22 @@ export default class DbConnect extends Component{
 var resultData=function(){
     return {
         "listConnected":[//当前开放连接数
-            {"date":"2018-02-03","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-04","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-05","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+            {"date":"2018-02-03","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-04","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-05","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-06","count":parseInt(Math.random()*100, 10)}
         ],
         "listRunning":[//当前正在运行连接数
-            {"date":"2018-02-03","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-04","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-05","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+            {"date":"2018-02-03","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-04","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-05","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-06","count":parseInt(Math.random()*100, 10)}
         ],
         "listMax":[//数据库最大连接数
-            {"date":"2018-02-03","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-04","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-05","count":parseInt(Math.random()*100)},
-            {"date":"2018-02-06","count":parseInt(Math.random()*100)}
+            {"date":"2018-02-03","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-04","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-05","count":parseInt(Math.random()*100, 10)},
+            {"date":"2018-02-06","count":parseInt(Math.random()*100, 10)}
         ]
     }
 }
@@ -390,19 +390,19 @@ var resultData=function(){
 var detailData=function(){
     return [
         {
-          "count": parseInt(Math.random()*10),
+          "count": parseInt(Math.random()*10, 10),
           "date": "2018-08-08 09:31:50"
         },
         {
-          "count": parseInt(Math.random()*10),
+          "count": parseInt(Math.random()*10, 10),
           "date": "2018-08-08 09:51:27"
         },
         {
-          "count": parseInt(Math.random()*10),
+          "count": parseInt(Math.random()*10, 10),
           "date": "2018-08-08 09:59:31"
         },
         {
-          "count": parseInt(Math.random()*10),
+          "count": parseInt(Math.random()*10, 10),
           "date": "2018-08-08 10:03:01"
         }
       ]

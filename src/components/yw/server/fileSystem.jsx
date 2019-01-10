@@ -41,7 +41,7 @@ export default class FileSystem extends Component {
                 startTime: 1508829810000,
                 endTime: 1540365810000
             }, (res) => {
-            console.log(res);
+            // console.log(res);
             if (res.result) {
                 this.setState({
                     jvmTotal: res.data.jvmTotal,

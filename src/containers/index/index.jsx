@@ -45,14 +45,14 @@ const { Header, Content, Footer, Sider } = Layout;
 export default class Index extends Component {
     //侧边栏点击
     menu = (e) => {
-        console.log("menu:" + this.props.index);
+        // console.log("menu:" + this.props.index);
         //修改状态，这里的indxe表示 redux定义是的index模块名字
         this.props.changeState({selected:this.props.index.selected,key:e.key});
     }
 
     //下拉款点击
     handleChange = (item,key) => {
-        console.log(item);//this.props.index.selected
+        // console.log(item);//this.props.index.selected
         //console.log("this.props.index.selected",this.props.index.selected);//this.props.index.selected
         if (item.key === "yf") {
             this.props.changeState({selected:'yf',key:'api_monitor'})

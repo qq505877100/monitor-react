@@ -10,16 +10,12 @@ export default class MemoryInfo extends Component {
         this.state = {
             data: []//
         }
-        console.log("constructor")
     }
     componentDidMount() {
         //渲染数据
         //this.props.ywGetCpu();
         //请求数据
         this.getMemoryData();
-        console.log("componentDidMount")
-
-        
     }
 
     getMemoryData = () => {

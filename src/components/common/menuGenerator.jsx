@@ -34,7 +34,7 @@ export default class MenuGenerator extends Component{
                                                         {
                                                             children2.map(item3 => {
                                                                 //三级菜单
-                                                                console.log(item3)
+                                                                // console.log(item3)
                                                                 let children3 = item3.children
                                                                 if (children3.length !== 0) {
                                                                     return null;
@@ -56,7 +56,7 @@ export default class MenuGenerator extends Component{
                                                     </SubMenu>
                                                 )
                                             } else {
-                                                console.log(item2.key)
+                                                // console.log(item2.key)
                                                 return (
                                                     //二级菜单项
                                                     <Menu.Item key={item2.key}>
@@ -87,7 +87,7 @@ export default class MenuGenerator extends Component{
                 </Menu>
             </div>
         );
-        console.log("menu",menu)
+        // console.log("menu",menu)
         return (
             menu
         )

@@ -25,7 +25,6 @@ export function ywGetJvm() {
                 }
             })
         },function (error) {
-            console.log('yw/jvm-error----------' + error);
         })
     }
 }
@@ -39,7 +38,6 @@ export function ywGetCpu() {
                     }
                 })
         },function (error) {
-            console.log('yw/cpu调用error----------' + error);
         })
     }
 }
