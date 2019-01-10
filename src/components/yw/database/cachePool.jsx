@@ -3,7 +3,7 @@ import echarts from 'echarts/lib/echarts';
 import { DatePicker,Icon,Button } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
-
+import _x from "../../../js/_x/util"
 
 import "../../../css/yw/database/cachePool.css"
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -17,7 +17,8 @@ export default class CachePool extends Component{
             topXData:[],
             bottomXData:[],
             topValue:[],
-            bottomValue:[]
+            bottomValue:[],
+            showEchart:false
         }
     }
 
@@ -43,27 +44,31 @@ export default class CachePool extends Component{
         }
         console.log(searchParam)
          /******************************************/
-
-                    //请求数据
-
-        /******************************************/
-        //请求成功的回调
-        let  topXData=[];
-        let bottomXData=[];
-        let topValue=[];
-        let bottomValue=[]
-        resultMap.listUseRate.forEach((v,i,arr)=>{
-            topXData.push(v.date);
-            topValue.push(v.count);
-        });
-        resultMap.listUseRate.forEach((v,i,arr)=>{
-            bottomXData.push(v.date);
-            bottomValue.push(v.count);
-        });
-
-        this.setState({
-            topXData,bottomXData,topValue,bottomValue
-        });
+        _x.request.request("api/back/monitor_mysql/bufferpool",searchParam,(resp)=>{
+            let data = resp.data;
+            if(resp.result && data){
+                //请求成功的回调
+                let  topXData=[];
+                let bottomXData=[];
+                let topValue=[];
+                let bottomValue=[]
+                data.listUseRate.forEach((v,i,arr)=>{
+                    topXData.push(v.date);
+                    topValue.push(v.count);
+                });
+                data.listUseRate.forEach((v,i,arr)=>{
+                    bottomXData.push(v.date);
+                    bottomValue.push(v.count);
+                });
+                this.setState({
+                    topXData,bottomXData,topValue,bottomValue,
+                    showEchart:true
+                });
+            }
+        },(e)=>{
+            console.error(e);
+            alert("服务器异常");
+        })
     }
 
 
@@ -231,7 +236,9 @@ export default class CachePool extends Component{
                     <DatePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
                 <div style={{ width: '80%',height: '80%',margin: '60px auto'}}>
-                    <ReactEcharts option={this.getOption()} opts={{height:'740px'}} style={{marginTop:'80px'}}/>
+                    <ReactEcharts option={this.getOption()} opts={{height:740}} 
+                    style={{marginTop:'80px',display:this.showEchart?'block':'none'}}/>
+                    <span style={{display:this.showEchart?'none':'block'}}>暂无数据</span>
                 </div>
             </div>
         )

@@ -3,6 +3,7 @@ import echarts from 'echarts/lib/echarts';
 import { DatePicker} from 'antd';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
+import _x from "../../../js/_x/util"
 
 import "../../../css/yw/database/performance.css"
 
@@ -17,7 +18,8 @@ export default class Performance extends Component{
         this.state = {
             xData:[],
             barData:[],
-            lineDate:[]
+            lineDate:[],
+            showEchart:false
         };
     }
 
@@ -41,22 +43,25 @@ export default class Performance extends Component{
             }
         }
         console.log(searDate)
-        /******************************************/
-
-                    //请求数据
-
-        /******************************************/
-        //请求成功的回调
-        let xData=[];//横坐标
-        let barData=[];//柱状图纵坐标
-        let lineDate=[]//折线图纵坐标
-        resultMap().forEach(function(value,index,array){
-            xData.push(value.schema_name);
-            barData.push(value.COUNT);
-            lineDate.push(value.avg_microsec);
-        });
-        this.setState({
-            xData,barData,lineDate
+        _x.request.request("api/back/monitor_mysql/performance",searDate,(resp)=>{
+            let result=resp.data;
+            let xData=[];//横坐标
+            let barData=[];//柱状图纵坐标
+            let lineDate=[]//折线图纵坐标
+            if(resp.result && result){
+                result.forEach(function(value,index,array){
+                    xData.push(value.schema_name);
+                    barData.push(value.COUNT);
+                    lineDate.push(value.avg_microsec);
+                });
+                this.setState({
+                    xData,barData,lineDate,
+                    showEchart:true
+                });
+            }
+        },(e)=>{
+            console.error(e);
+            alert("服务器异常");
         });
     }
 
@@ -207,7 +212,9 @@ export default class Performance extends Component{
                     <span className="date-span">日期选择：</span>
                     <DatePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
-                <ReactEcharts option={this.getOption()} opts={{height:'740px'}} style={{marginTop:'80px'}}/>
+                <ReactEcharts option={this.getOption()} opts={{height:740}} 
+                style={{marginTop:'80px',display:this.state.showEchart?'block':"none"}}/>
+                <span style={{marginTop:'80px',display:this.state.showEchart?'none':"block"}}>暂无数据</span>
             </div>
         )
     }

@@ -3,6 +3,7 @@ import echarts from 'echarts/lib/echarts';
 import { DatePicker,Icon,Button } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 import moment from 'moment';
+import _x from "../../../js/_x/util"
 
 import "../../../css/yw/database/dbConnect.css"
 
@@ -15,6 +16,7 @@ export default class DbConnect extends Component{
     constructor(props){
         super(props);
         this.state = {
+           showEchart:false,
            showOption:true,
            isShowDate:true,
            isShowButton:false,
@@ -50,71 +52,71 @@ export default class DbConnect extends Component{
         console.log(searhData);
         
         /*********************************************/
-    
-                        //请求数据
-
-        /**********************************************/
-        //成功回调
-        let YDate=[];
-        let connectedValue=[];
-        let runningValue=[];
-        let maxValue=[];
-
-        resultData().listConnected.forEach((v,i,arr)=>{
-            YDate.push(v.date);
-            connectedValue.push(v.count);
-        });
-        resultData().listRunning.forEach((v,i,arr)=>{
-            runningValue.push(v.count);
-        });
-        resultData().listConnected.forEach((v,i,arr)=>{
-            maxValue.push(v.count);
-        });
-
-        this.setState({
-            barYData:YDate,
-            barSeries:[
-                {
-                    name: '开放连接数',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'insideRight'
+        _x.request.request("api/back/monitor_mysql/connections",searhData,(resp)=>{
+            let data = resp.data;
+             //成功回调
+            let YDate=[];
+            let connectedValue=[];
+            let runningValue=[];
+            let maxValue=[];
+            if(resp.result && data){
+                data.listConnected.forEach((v,i,arr)=>{
+                    YDate.push(v.date);
+                    connectedValue.push(v.count);
+                });
+                data.listRunning.forEach((v,i,arr)=>{
+                    runningValue.push(v.count);
+                });
+                data.listConnected.forEach((v,i,arr)=>{
+                    maxValue.push(v.count);
+                }); 
+                this.setState({
+                    showEchart:true,
+                    barYData:YDate,
+                    barSeries:[
+                        {
+                            name: '开放连接数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: connectedValue
+                        },
+                        {
+                            name: '正在运行连接数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: runningValue
+                        },
+                        {
+                            name: '最大连接数',
+                            type: 'bar',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: maxValue
                         }
-                    },
-                    data: connectedValue
-                },
-                {
-                    name: '正在运行连接数',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: runningValue
-                },
-                {
-                    name: '最大连接数',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: maxValue
-                }
-            ]
-        },()=>{
-            console.log(this.state)
-        });
-
+                    ]
+                });
+            }
+        },(e)=>{
+            console.error(e);
+            alert("服务器异常");
+        })
     }
 
 
@@ -281,26 +283,29 @@ export default class DbConnect extends Component{
             "date":param.name
         }
          /*********************************************/
-    
-                        //请求数据
-
-        /**********************************************/
-        //成功回调
-        let lineXData=[];
-        let lineCount=[];
-        detailData().forEach((v,x,arr)=>{
-            lineXData.push(v.date);
-            lineCount.push(v.count);
-        });
-
-        this.setState({
-            showOption:false,
-            isShowDate:false,
-            isShowButton:true,
-            lineXData:lineXData,
-            lineCount:lineCount,
-            lineColor:param.color,
-            lineName:param.seriesName
+        _x.request.request("api/back/monitor_mysql/connections",searchData,(resp)=>{
+            let data = resp.data;
+            //成功回调
+            let lineXData=[];
+            let lineCount=[];
+            if(resp.result && data){
+                data.forEach((v,x,arr)=>{
+                    lineXData.push(v.date);
+                    lineCount.push(v.count);
+                });
+                this.setState({
+                    showOption:false,
+                    isShowDate:false,
+                    isShowButton:true,
+                    lineXData:lineXData,
+                    lineCount:lineCount,
+                    lineColor:param.color,
+                    lineName:param.seriesName
+                })
+            }
+        },(e)=>{
+            console.error(e);
+            alert("服务器异常");
         })
     }
 
@@ -345,8 +350,8 @@ export default class DbConnect extends Component{
 
                         notMerge={true}
 
-                        style={{height:'100%'}}/>
-                                            
+                        style={{height:'100%',display:this.showEchart?'block':'none'}}/>
+                        <span style={{display:this.showEchart?'none':'block'}}>暂无数据</span>
                 </div>
                 <div className="dbConnect-span" style={dateStyle}>
                     <b>注：</b>

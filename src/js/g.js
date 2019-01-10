@@ -8,7 +8,7 @@
  * 全局变量
  */
 const G = {
-    defaultServerUrl: "http://10.10.1.62:8989/cloud/",
+    defaultServerUrl: "http://10.10.1.142:8080/cloud/",
     title: "课堂生态",
     dataServices: "",
     rootPath: '',
