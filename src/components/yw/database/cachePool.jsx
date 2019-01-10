@@ -236,7 +236,7 @@ export default class CachePool extends Component{
                     <DatePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
                 <div style={{ width: '80%',height: '80%',margin: '60px auto'}}>
-                    <ReactEcharts option={this.getOption()} opts={{height:'740px'}} 
+                    <ReactEcharts option={this.getOption()} opts={{height:740}} 
                     style={{marginTop:'80px',display:this.showEchart?'block':'none'}}/>
                     <span style={{display:this.showEchart?'none':'block'}}>暂无数据</span>
                 </div>
