@@ -9,8 +9,8 @@ import moment from 'moment';
 import "../../../css/yw/database/throughput.css"
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const TIME_VALUE = {
-    startTime: moment(new Date()),
-    endTime: moment(new Date()).add(-7, "days"),
+    endTime : moment(new Date()),
+    startTime: moment(new Date()).add(-7, "days"),
 }
 
 export default class Throughput extends Component {

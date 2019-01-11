@@ -8,8 +8,8 @@ import "../../../css/yw/database/dataQuota.css"
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const TIME_VALUE={
-    startTime: moment(new Date()),
-    endTime: moment(new Date()).add(-7, "days"),
+    endTime : moment(new Date()),
+    startTime: moment(new Date()).add(-7, "days"),
 }
 /**
  * 运维->流量统计
@@ -133,8 +133,6 @@ export default class DataQuota extends Component{
                           }
                     ],
                     showEchart:true
-                },()=>{
-                    console.log(this.state);
                 });
             }
            

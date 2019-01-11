@@ -9,8 +9,8 @@ import "../../../css/yw/database/dbConnect.css"
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const TIME_VALUE={
-    startTime: moment(new Date()),
-    endTime: moment(new Date()).add(-7, "days"),
+    endTime: moment(new Date()),
+    startTime: moment(new Date()).add(-7, "days"),
 }
 export default class DbConnect extends Component{
     constructor(props){
