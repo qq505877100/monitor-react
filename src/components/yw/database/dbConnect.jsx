@@ -67,7 +67,7 @@ export default class DbConnect extends Component{
                 data.listRunning.forEach((v,i,arr)=>{
                     runningValue.push(v.count);
                 });
-                data.listConnected.forEach((v,i,arr)=>{
+                data.listMax.forEach((v,i,arr)=>{
                     maxValue.push(v.count);
                 }); 
                 this.setState({
@@ -111,6 +111,8 @@ export default class DbConnect extends Component{
                             data: maxValue
                         }
                     ]
+                },()=>{
+                    console.log(this.state);
                 });
             }
         },(e)=>{
@@ -283,7 +285,7 @@ export default class DbConnect extends Component{
             "date":param.name
         }
          /*********************************************/
-        _x.request.request("api/back/monitor_mysql/connections",searchData,(resp)=>{
+        _x.request.request("api/back/monitor_mysql/connections_detail",searchData,(resp)=>{
             let data = resp.data;
             //成功回调
             let lineXData=[];
@@ -350,8 +352,8 @@ export default class DbConnect extends Component{
 
                         notMerge={true}
 
-                        style={{height:'100%',display:this.showEchart?'block':'none'}}/>
-                        <span style={{display:this.showEchart?'none':'block'}}>暂无数据</span>
+                        style={{height:'100%',display:this.state.showEchart?'block':'none'}}/>
+                        <span style={{display:this.state.showEchart?'none':'block'}}>暂无数据</span>
                 </div>
                 <div className="dbConnect-span" style={dateStyle}>
                     <b>注：</b>

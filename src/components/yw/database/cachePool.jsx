@@ -42,7 +42,7 @@ export default class CachePool extends Component{
                 "date":dataTime
             }
         }
-        console.log(searchParam)
+        console.log(searchParam)    
          /******************************************/
         _x.request.request("api/back/monitor_mysql/bufferpool",searchParam,(resp)=>{
             let data = resp.data;
@@ -56,7 +56,7 @@ export default class CachePool extends Component{
                     topXData.push(v.date);
                     topValue.push(v.count);
                 });
-                data.listUseRate.forEach((v,i,arr)=>{
+                data.listHitRate.forEach((v,i,arr)=>{
                     bottomXData.push(v.date);
                     bottomValue.push(v.count);
                 });
@@ -237,8 +237,8 @@ export default class CachePool extends Component{
                 </div>
                 <div style={{ width: '80%',height: '80%',margin: '60px auto'}}>
                     <ReactEcharts option={this.getOption()} opts={{height:740}} 
-                    style={{marginTop:'80px',display:this.showEchart?'block':'none'}}/>
-                    <span style={{display:this.showEchart?'none':'block'}}>暂无数据</span>
+                    style={{marginTop:'80px',display:this.state.showEchart?'block':'none'}}/>
+                    <span style={{display:this.state.showEchart?'none':'block'}}>暂无数据</span>
                 </div>
             </div>
         )

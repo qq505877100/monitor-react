@@ -147,80 +147,78 @@ export default class Throughput extends Component {
     //点击下穿到具体时间
     itemOnClick = (param) => {
         /*********************************************/
-        console.log(param);
         let type = param.seriesIndex;//请求类型
         let date = param.name;//时间(天)
-
-        //请求数据
-
-        /**********************************************/
-
         let arr = [];//横坐标
         let count = [];//数据
-        dateilResult().forEach(function (value, index, array) {
-            arr.push(value.date);
-            count.push(value.count)
-        });
-
-
-        //设置数据
-        let typeName = type == 0 ? ['吞吐量数据'] : type == 1 ? ['查询数量'] : type == 2 ? ['插入语句数量'] : type == 3 ? ['删除数量'] : ['更新数量']
-        this.setState({
-            isShowButton: true,
-            isShowDate: false,
-            data: typeName,
-            xData: arr,
-            series: [
-                {
-                    name: '吞吐量数据',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: '吞吐量数据' === typeName[0] ? count : []
-                },
-                {
-                    name: '查询数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: '查询数量' === typeName[0] ? count : []
-                },
-                {
-                    name: '插入语句数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: '插入语句数量' === typeName[0] ? count : []
-                },
-                {
-                    name: '删除数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: '删除数量' === typeName[0] ? count : []
-                },
-                {
-                    name: '更新数量',
-                    type: 'line',
-                    stack: '总量',
-                    areaStyle: {
-                        opacity: 0.2
-                    },
-                    data: '更新数量' === typeName[0] ? count : []
-                }
-            ]
-        }, () => {
-            console.log(this.state)
+        _x.request.request("api/back/monitor_mysql/questions_detail",{"type":type,"date":date},(resp)=>{
+            let detailResult=resp.data;
+            if(resp.result && dateilResult){
+                detailResult.forEach(function (value, index, array) {
+                    arr.push(value.date);
+                    count.push(value.count)
+                });
+                //设置数据
+                let typeName = type == 0 ? ['吞吐量数据'] : type == 1 ? ['查询数量'] : type == 2 ? ['插入语句数量'] : type == 3 ? ['删除数量'] : ['更新数量']
+                this.setState({
+                    isShowButton: true,
+                    isShowDate: false,
+                    data: typeName,
+                    xData: arr,
+                    series: [
+                        {
+                            name: '吞吐量数据',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {
+                                opacity: 0.2
+                            },
+                            data: '吞吐量数据' === typeName[0] ? count : []
+                        },
+                        {
+                            name: '查询数量',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {
+                                opacity: 0.2
+                            },
+                            data: '查询数量' === typeName[0] ? count : []
+                        },
+                        {
+                            name: '插入语句数量',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {
+                                opacity: 0.2
+                            },
+                            data: '插入语句数量' === typeName[0] ? count : []
+                        },
+                        {
+                            name: '删除数量',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {
+                                opacity: 0.2
+                            },
+                            data: '删除数量' === typeName[0] ? count : []
+                        },
+                        {
+                            name: '更新数量',
+                            type: 'line',
+                            stack: '总量',
+                            areaStyle: {
+                                opacity: 0.2
+                            },
+                            data: '更新数量' === typeName[0] ? count : []
+                        }
+                    ]
+                })
+            }
+        },(e)=>{
+            console.error(e);
+            alert("下穿查看详情服务器异常");
+            this.goBack();
         })
-
 
     }
 

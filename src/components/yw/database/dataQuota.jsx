@@ -133,6 +133,8 @@ export default class DataQuota extends Component{
                           }
                     ],
                     showEchart:true
+                },()=>{
+                    console.log(this.state);
                 });
             }
            
@@ -209,7 +211,7 @@ export default class DataQuota extends Component{
                   "nameTextStyle": {
                     "color": "#FFFFFF"
                   },
-                  "interval": 10,
+                //   "interval": 10,
                   "axisLabel": {
                     "show": true,
                     "textStyle": {
@@ -260,56 +262,58 @@ export default class DataQuota extends Component{
         console.log(searchParam)
         /*********************************************/
         _x.request.request("api/back/monitor_mysql/network_detail",searchParam,(resp)=>{
-            let resultdataLine=resp.list;
-            
             let XData=[];
             let value=[];
-            resultdataLine.forEach((v,i,arr)=>{
-                XData.push(v.date);
-                value.push(v.count);
-            });
-    
-            this.setState({
-                visible: true,
-                lineXData:XData,
-                titleName:param.seriesName,
-                lineSeries:[
-                    {
-                        name:param.seriesName,
-                        type:'line',
-                        stack: '总量',
-                        data:value,
-                        // lineStyle:{
-                        //     color:param.color
-                        // },
-                        // areaStyle: {
-                        //     opacity:0.3,
-                        //     color:param.color
-                        // },
-                        smooth: true,
-                        areaStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: 'rgba(82, 191, 255, 0.3)'
-                                }, {
-                                    offset: 0.8,
-                                    color: 'rgba(82, 191, 255, 0)'
-                                }], false),
-                                shadowColor: 'rgba(228, 139, 76, 0.1)',
-                                shadowBlur: 10
-                            }
-                        },
-                        symbolSize:4,  
-                        itemStyle: {
-                            normal: {
-                                color: 'rgb(82, 191, 255)',
-                                borderColor:'#e48b4c'
+            let resultdataLine=resp.data;
+            if(resp.result && resultdataLine){
+                resultdataLine.forEach((v,i,arr)=>{
+                    XData.push(v.date);
+                    value.push(v.count);
+                });
+        
+                this.setState({
+                    visible: true,
+                    lineXData:XData,
+                    titleName:param.seriesName,
+                    lineSeries:[
+                        {   
+                            name:param.seriesName,
+                            type:'line',
+                            stack: '总量',
+                            data:value,
+                            // lineStyle:{
+                            //     color:param.color
+                            // },
+                            // areaStyle: {
+                            //     opacity:0.3,
+                            //     color:param.color
+                            // },
+                            smooth: true,
+                            areaStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                        offset: 0,
+                                        color: 'rgba(82, 191, 255, 0.3)'
+                                    }, {
+                                        offset: 0.8,
+                                        color: 'rgba(82, 191, 255, 0)'
+                                    }], false),
+                                    shadowColor: 'rgba(228, 139, 76, 0.1)',
+                                    shadowBlur: 10
+                                }
                             },
-                        },
-                    }
-                ]
-            })
+                            symbolSize:4,  
+                            itemStyle: {
+                                normal: {
+                                    color: 'rgb(82, 191, 255)',
+                                    borderColor:'#e48b4c'
+                                },
+                            },
+                        }
+                    ]
+                })
+            }
+            
         },(e)=>{
             console.error(e);
             alert("服务器异常");
@@ -435,12 +439,12 @@ export default class DataQuota extends Component{
                     <span className="date-span">日期：</span>
                     <RangePicker onChange={this.onChange} style={{float:'right'}}/>
                 </div>
-                <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.showEchart?"block":"none"}}>
+                <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.state.showEchart?"block":"none"}}>
                     <ReactEcharts onEvents={{"click":this.itemOnClick}}
                      option={this.getBarOption()}
                      opts={{height:740}}/>
                 </div>
-                <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.showEchart?"none":"block"}}>
+                <div style={{ width: '80%',height: '80%',margin: '60px auto',display:this.state.showEchart?"none":"block"}}>
                     <span>暂无数据</span>
                 </div>
                 <div className="dataQuota-span">
