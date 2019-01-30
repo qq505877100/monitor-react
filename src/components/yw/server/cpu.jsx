@@ -5,7 +5,7 @@ import "../../../css/yw/server/cpu.css";
 
 import { ywGetCpu } from '../../../reducers/yw/yw.reducer';
 import { connect } from 'react-redux';
-import CommonNoData from '../../common/commonNoData';
+// import CommonNoData from '../../common/commonNoData';
 import ChartNoData from '../../common/chartNoData';
 
 @connect(
@@ -55,25 +55,16 @@ export default class Cpu extends Component {
         
         return (
             <div className="cpu-content">
-                {/* <i className="iconfont icon-wushuju1"></i> */}
-                {/* <ChartNoData></ChartNoData> */}
-                <div>
-
-                <CommonNoData/>
-                <div style={{width: 300,height: 200}}>
-                    <ChartNoData></ChartNoData>
-                </div>
-                </div>
                 <div className="cpu-title">
                     <h1>cpu使用情况</h1>
                 </div>
                 {
-                    this.state.data.length === 0 ? 
+                    this.state.data.length !== 0 ? 
                         [1,2,3,4,5].map((item,index)=> (
                             <GaugeChart key={item} style={style} title={`cpu${item}使用率`} value={parseInt(Math.random() * 100)}></GaugeChart>
                         ))
                         :
-                        <div>暂无数据</div>
+                        <ChartNoData></ChartNoData>
                 }
             </div>
         );

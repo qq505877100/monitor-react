@@ -8,9 +8,16 @@ export default class CommonNoData extends Component {
     }
 
     render() {
+        let style = {
+            fontSize: this.props.size || 200
+        }
+        let fontStyle = {
+            fontSize: this.props.fontSize || 14
+        }
         return (
-            <div>
-                <h1>图标无数据!</h1>
+            <div className="fxh-wrapper">
+                <i className="iconfont fxh-no-data-icon" style={{ style }}>&#xe606;</i>
+                <span className="fxh-no-data-info" style={{ fontStyle }}>暂无数据!</span>
             </div>
         )
     }

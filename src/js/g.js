@@ -2,13 +2,14 @@
  * @Author: lxx 
  * @Date: 2018-08-27 22:14:20 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-01-09 15:37:55
+ * @Last Modified time: 2019-01-22 11:26:19
  */
 /**
  * 全局变量
  */
 const G = {
-    defaultServerUrl: "http://10.10.1.142:8080/cloud/",
+    // defaultServerUrl: "http://10.10.1.142:8080/cloud/",
+    defaultServerUrl: "http://10.10.1.204:8080/cloud",
     title: "课堂生态",
     dataServices: "",
     rootPath: '',

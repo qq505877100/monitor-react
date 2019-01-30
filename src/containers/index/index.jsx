@@ -170,11 +170,11 @@ export default class Index extends Component {
                     </div> */}
                     <Row>
                         <Col style={{fontSize: "30px",textAlign: "center",width:224}} span={3}>日志监控</Col>
-                        <Col >
+                        <Col>
                             {/* 头部导航栏 */}
                             <Menu mode="horizontal" 
 								onClick={this.handleChange}
-                                style={{height:58,float:"right"}}
+                                style={{height:64,float:"right",padding: "9px 0px"}}
                                 theme="dark">
                                 <Menu.Item key="yf">
                                     <Icon type="mail" />研发
